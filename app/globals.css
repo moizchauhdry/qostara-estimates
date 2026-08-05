@@ -1,26 +1,158 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Decelerating curve: motion starts fast and settles, never linear. */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layered shadows — a tight contact shadow plus a wide diffuse one. */
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04),
+    0 10px 28px -12px rgba(15, 23, 42, 0.14);
+  --shadow-lifted: 0 2px 6px rgba(15, 23, 42, 0.05),
+    0 28px 60px -20px rgba(15, 23, 42, 0.24);
+  --shadow-float: 0 4px 10px rgba(15, 23, 42, 0.05),
+    0 40px 80px -24px rgba(15, 23, 42, 0.28);
+  --shadow-brand: 0 1px 2px rgba(37, 99, 235, 0.24),
+    0 14px 32px -10px rgba(37, 99, 235, 0.45);
+  --shadow-brand-lifted: 0 2px 4px rgba(37, 99, 235, 0.28),
+    0 24px 48px -12px rgba(37, 99, 235, 0.55);
+
+  --animate-fade-up: fade-up 0.9s var(--ease-smooth) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Shared card treatment so every surface has the same radius and depth. */
+@utility card {
+  @apply rounded-3xl bg-white ring-1 ring-slate-900/5 shadow-soft;
+}
+
+/* Hover lift for anything the pointer can meaningfully interact with. */
+@utility lift {
+  @apply transition duration-500 ease-smooth hover:-translate-y-1.5 hover:shadow-lifted;
+}
+
+/* Pill control with a spring-loaded press, used for every call to action. */
+@utility pill {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition duration-300 ease-smooth hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98];
+}
+
+/* Smallest hover response, for icons and secondary surfaces. */
+@utility raise {
+  @apply transition duration-500 ease-smooth hover:-translate-y-0.5;
+}
+
+/*
+ * Scroll-driven reveal, done in pure CSS so there is no client JS and no flash
+ * of hidden content. Each element gets its own `view()` timeline, so items in a
+ * group stagger naturally as they scroll in. Browsers without
+ * `animation-timeline` render everything in its final state.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal],
+    [data-reveal-group] > * {
+      animation: reveal 1s var(--ease-smooth) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 70%;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchored sections clear of the sticky navbar. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-slate-600;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Large display type needs negative tracking to avoid looking loose. */
+  h1,
+  h2 {
+    @apply text-slate-900;
+    letter-spacing: -0.032em;
+  }
+
+  h3,
+  h4 {
+    @apply text-slate-900;
+    letter-spacing: -0.016em;
+  }
+
+  ::selection {
+    @apply bg-brand-600 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /*
+   * Tailwind v4 animates the standalone `translate` and `scale` properties, so
+   * overriding `transform` alone would leave the movement in place. Only the
+   * opt-in motion utilities are neutralised — `transform`/`translate` are also
+   * used for static centring elsewhere and must survive.
+   */
+  .lift:hover,
+  .raise:hover,
+  .pill:hover,
+  .pill:active {
+    translate: none !important;
+    scale: none !important;
+  }
 }
