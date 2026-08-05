@@ -6,11 +6,39 @@ import {
   type ContactFormState,
 } from "./contact-state";
 
-// Deliberately permissive: the mail server is the real authority on deliverability.
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const phonePattern = /^[\d\s().+-]{7,}$/;
 
-function validate(values: Record<ContactField, string>) {
-  const errors: Partial<Record<ContactField, string>> = {};
+const allowedDrawingTypes = new Set([
+  "application/pdf",
+  "application/acad",
+  "image/vnd.dwg",
+  "application/x-dwg",
+  "application/dwg",
+]);
+const allowedDrawingExtensions = [".pdf", ".dwg"];
+
+function validateDrawing(file: File | null) {
+  if (!file || file.size === 0) return undefined;
+
+  const name = file.name.toLowerCase();
+  const hasAllowedExtension = allowedDrawingExtensions.some((ext) =>
+    name.endsWith(ext),
+  );
+
+  if (!hasAllowedExtension && !allowedDrawingTypes.has(file.type)) {
+    return "Upload a PDF or DWG drawing set.";
+  }
+
+  if (file.size > 25 * 1024 * 1024) {
+    return "Drawings must be 25 MB or smaller.";
+  }
+
+  return undefined;
+}
+
+function validate(values: Record<ContactField, string>, drawingError?: string) {
+  const errors: ContactFormState["errors"] = {};
 
   if (values.name.length < 2) {
     errors.name = "Please tell us your name.";
@@ -20,12 +48,24 @@ function validate(values: Record<ContactField, string>) {
     errors.email = "Enter a work email we can reply to.";
   }
 
+  if (values.phone && !phonePattern.test(values.phone)) {
+    errors.phone = "Enter a valid phone number.";
+  }
+
+  if (!values.projectType) {
+    errors.projectType = "Select the type of estimate you need.";
+  }
+
   if (values.message.length < 10) {
-    errors.message = "A sentence or two about your setup helps us prepare.";
+    errors.message = "A sentence or two about your project helps us prepare.";
   }
 
   if (values.consent !== "on") {
     errors.consent = "We need your permission before we get in touch.";
+  }
+
+  if (drawingError) {
+    errors.drawings = drawingError;
   }
 
   return errors;
@@ -42,7 +82,12 @@ export async function submitContactForm(
     ]),
   ) as Record<ContactField, string>;
 
-  const errors = validate(values);
+  const drawing = formData.get("drawings");
+  const drawingFile =
+    drawing instanceof File && drawing.size > 0 ? drawing : null;
+  const drawingError = validateDrawing(drawingFile);
+
+  const errors = validate(values, drawingError);
 
   if (Object.keys(errors).length > 0) {
     return {
@@ -54,7 +99,6 @@ export async function submitContactForm(
   }
 
   // Hand off to your CRM, ticketing system, or transactional email provider here.
-  // Keep the await so the pending state reflects real network latency.
   await Promise.resolve();
 
   return {

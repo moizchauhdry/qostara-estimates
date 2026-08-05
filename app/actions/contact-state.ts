@@ -8,7 +8,8 @@ export const contactFields = [
   "name",
   "email",
   "company",
-  "teamSize",
+  "phone",
+  "projectType",
   "message",
   "consent",
 ] as const;
@@ -18,7 +19,7 @@ export type ContactField = (typeof contactFields)[number];
 export type ContactFormState = {
   status: "idle" | "invalid" | "sent";
   message: string;
-  errors: Partial<Record<ContactField, string>>;
+  errors: Partial<Record<ContactField | "drawings", string>>;
   /** Echoed back so a rejected submission never loses what was typed. */
   values: Partial<Record<ContactField, string>>;
 };
@@ -29,3 +30,13 @@ export const initialContactState: ContactFormState = {
   errors: {},
   values: {},
 };
+
+export const projectTypes = [
+  "Construction cost estimation",
+  "Material takeoff",
+  "Quantity surveying",
+  "Bid preparation",
+  "Design-build estimate",
+  "Labor cost analysis",
+  "Other / not sure",
+] as const;

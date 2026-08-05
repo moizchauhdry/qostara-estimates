@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
+import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,40 +15,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Quotely — Estimates that win the job";
-const description =
-  "Quotely helps contractors and agencies build branded estimates in minutes, track every view, and get paid faster with online approvals and deposits.";
-const siteUrl = "https://quotely.com";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: title,
-    template: "%s — Quotely",
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s — ${siteConfig.name}`,
   },
-  description,
-  applicationName: "Quotely",
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   keywords: [
-    "estimating software",
-    "construction estimates",
-    "quoting software",
-    "proposal software",
-    "e-signature estimates",
-    "contractor invoicing",
+    "construction cost estimating",
+    "quantity takeoff",
+    "material takeoff",
+    "bid preparation",
+    "quantity surveying",
+    "construction estimating services",
   ],
   alternates: { canonical: "/" },
   openGraph: {
-    title,
-    description,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
     type: "website",
-    url: siteUrl,
-    siteName: "Quotely",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -57,29 +55,28 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#172554" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
   ],
 };
 
-/** Organisation-level structured data, kept alongside the page-level FAQ schema. */
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Quotely",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  description,
-  url: siteUrl,
-  offers: {
-    "@type": "Offer",
-    price: "19",
-    priceCurrency: "USD",
+  "@type": "ProfessionalService",
+  name: siteConfig.legalName,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  email: siteConfig.email,
+  telephone: siteConfig.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.line1,
+    addressLocality: "San Francisco",
+    addressRegion: "CA",
+    postalCode: "94105",
+    addressCountry: "US",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "2400",
-  },
+  areaServed: "United States",
+  priceRange: "$$",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -89,7 +86,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        {children}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-full focus:bg-signal-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-signal"
+        >
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

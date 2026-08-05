@@ -1,35 +1,29 @@
-import { Contact } from "./components/contact";
-import { Faq } from "./components/faq";
-import { Features } from "./components/features";
-import { Footer } from "./components/footer";
-import { Hero } from "./components/hero";
-import { Navbar } from "./components/navbar";
-import { Pricing } from "./components/pricing";
-import { Services } from "./components/services";
-import { Statistics } from "./components/statistics";
-import { Testimonials } from "./components/testimonials";
+import { ContactBanner } from "@/components/home/contact-banner";
+import { Faq } from "@/components/home/faq";
+import { Hero } from "@/components/home/hero";
+import { LogoCloud } from "@/components/home/logo-cloud";
+import { Portfolio } from "@/components/home/portfolio";
+import { ProcessTimeline } from "@/components/home/process-timeline";
+import { Services } from "@/components/home/services";
+import { Statistics } from "@/components/home/statistics";
+import { Testimonials } from "@/components/home/testimonials";
+import { TradesGrid } from "@/components/home/trades-grid";
+import { WhyChooseUs } from "@/components/home/why-choose-us";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-full focus:bg-brand-600 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-brand"
-      >
-        Skip to content
-      </a>
-      <Navbar />
-      <main id="main" className="flex-1">
-        <Hero />
-        <Services />
-        <Features />
-        <Statistics />
-        <Testimonials />
-        <Pricing />
-        <Faq />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <LogoCloud />
+      <Services />
+      <WhyChooseUs />
+      <ProcessTimeline />
+      <TradesGrid />
+      <Portfolio />
+      <Testimonials />
+      <Statistics />
+      <Faq />
+      <ContactBanner />
     </>
   );
 }

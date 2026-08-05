@@ -1,17 +1,47 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
-  --color-brand-950: #172554;
+  /* Ink — the structural navy the brand is built on (#0F172A at 950). */
+  --color-ink-50: #f6f7f9;
+  --color-ink-100: #eceef2;
+  --color-ink-200: #d5dae3;
+  --color-ink-300: #b0bacb;
+  --color-ink-400: #8494ad;
+  --color-ink-500: #647693;
+  --color-ink-600: #4f5e79;
+  --color-ink-700: #414c62;
+  --color-ink-800: #384153;
+  --color-ink-900: #1e293b;
+  --color-ink-950: #0f172a;
+
+  /* Signal blue — interactive colour, anchored on #2563EB. */
+  --color-signal-50: #eff5ff;
+  --color-signal-100: #dbe8fe;
+  --color-signal-200: #bfd7fe;
+  --color-signal-300: #93bcfd;
+  --color-signal-400: #609afa;
+  --color-signal-500: #3b82f6;
+  --color-signal-600: #2563eb;
+  --color-signal-700: #1d4ed8;
+  --color-signal-800: #1e40af;
+  --color-signal-900: #1e3a8a;
+  --color-signal-950: #172554;
+
+  /* Amber — reserved for emphasis and measurement marks (#F59E0B). */
+  --color-marker-50: #fffbeb;
+  --color-marker-100: #fef3c7;
+  --color-marker-200: #fde68a;
+  --color-marker-300: #fcd34d;
+  --color-marker-400: #fbbf24;
+  --color-marker-500: #f59e0b;
+  --color-marker-600: #d97706;
+  --color-marker-700: #b45309;
+
+  --color-surface: #f8fafc;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -20,112 +50,100 @@
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Layered shadows — a tight contact shadow plus a wide diffuse one. */
-  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04),
-    0 10px 28px -12px rgba(15, 23, 42, 0.14);
-  --shadow-lifted: 0 2px 6px rgba(15, 23, 42, 0.05),
-    0 28px 60px -20px rgba(15, 23, 42, 0.24);
-  --shadow-float: 0 4px 10px rgba(15, 23, 42, 0.05),
-    0 40px 80px -24px rgba(15, 23, 42, 0.28);
-  --shadow-brand: 0 1px 2px rgba(37, 99, 235, 0.24),
-    0 14px 32px -10px rgba(37, 99, 235, 0.45);
-  --shadow-brand-lifted: 0 2px 4px rgba(37, 99, 235, 0.28),
-    0 24px 48px -12px rgba(37, 99, 235, 0.55);
+  --shadow-soft:
+    0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 28px -12px rgba(15, 23, 42, 0.12);
+  --shadow-lifted:
+    0 2px 6px rgba(15, 23, 42, 0.05), 0 28px 60px -20px rgba(15, 23, 42, 0.2);
+  --shadow-float:
+    0 4px 10px rgba(15, 23, 42, 0.05), 0 44px 84px -28px rgba(15, 23, 42, 0.28);
+  --shadow-signal:
+    0 1px 2px rgba(37, 99, 235, 0.22), 0 14px 32px -12px rgba(37, 99, 235, 0.42);
+  --shadow-signal-lifted:
+    0 2px 4px rgba(37, 99, 235, 0.26), 0 26px 52px -14px rgba(37, 99, 235, 0.5);
 
-  --animate-fade-up: fade-up 0.9s var(--ease-smooth) both;
+  --animate-fade-up: fade-up 0.8s var(--ease-smooth) both;
+  --animate-drift: drift 22s ease-in-out infinite;
 
   @keyframes fade-up {
     from {
       opacity: 0;
-      transform: translateY(1.5rem);
+      transform: translateY(1.25rem);
     }
     to {
       opacity: 1;
       transform: none;
     }
   }
-}
 
-/* Shared card treatment so every surface has the same radius and depth. */
-@utility card {
-  @apply rounded-3xl bg-white ring-1 ring-slate-900/5 shadow-soft;
-}
-
-/* Hover lift for anything the pointer can meaningfully interact with. */
-@utility lift {
-  @apply transition duration-500 ease-smooth hover:-translate-y-1.5 hover:shadow-lifted;
-}
-
-/* Pill control with a spring-loaded press, used for every call to action. */
-@utility pill {
-  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition duration-300 ease-smooth hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98];
-}
-
-/* Smallest hover response, for icons and secondary surfaces. */
-@utility raise {
-  @apply transition duration-500 ease-smooth hover:-translate-y-0.5;
-}
-
-/*
- * Scroll-driven reveal, done in pure CSS so there is no client JS and no flash
- * of hidden content. Each element gets its own `view()` timeline, so items in a
- * group stagger naturally as they scroll in. Browsers without
- * `animation-timeline` render everything in its final state.
- */
-@keyframes reveal {
-  from {
-    opacity: 0;
-    translate: 0 2rem;
-  }
-  to {
-    opacity: 1;
-    translate: none;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    [data-reveal],
-    [data-reveal-group] > * {
-      animation: reveal 1s var(--ease-smooth) both;
-      animation-timeline: view();
-      animation-range: entry 5% entry 70%;
+  /* Slow ambient movement for the hero's background glow. */
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(2rem, -1.5rem, 0) scale(1.08);
     }
   }
+}
+
+/* Page gutters and max width, identical on every section and page. */
+@utility shell {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+}
+
+/* The standard raised surface: generous radius, hairline ring, soft depth. */
+@utility panel {
+  @apply rounded-2xl bg-white ring-1 ring-ink-950/6 shadow-soft;
+}
+
+/* Frosted surface for anything overlapping imagery or gradients. */
+@utility glass {
+  @apply rounded-2xl bg-white/70 ring-1 ring-white/60 shadow-lifted backdrop-blur-xl backdrop-saturate-150;
+}
+
+/* Small uppercase label that opens most sections. */
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     /* Keeps anchored sections clear of the sticky navbar. */
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
   }
 
   body {
-    @apply bg-white font-sans text-slate-600;
+    @apply bg-white font-sans text-ink-600;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  /* Large display type needs negative tracking to avoid looking loose. */
+  /* Display type needs negative tracking or it reads loose at large sizes. */
   h1,
   h2 {
-    @apply text-slate-900;
-    letter-spacing: -0.032em;
+    @apply text-ink-950;
+    letter-spacing: -0.034em;
   }
 
   h3,
   h4 {
-    @apply text-slate-900;
-    letter-spacing: -0.016em;
+    @apply text-ink-950;
+    letter-spacing: -0.018em;
   }
 
   ::selection {
-    @apply bg-brand-600 text-white;
+    @apply bg-signal-600 text-white;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand-600;
+    @apply outline-2 outline-offset-2 outline-signal-600;
+  }
+
+  * {
+    @apply border-border;
   }
 }
 
@@ -141,18 +159,61 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
 
-  /*
-   * Tailwind v4 animates the standalone `translate` and `scale` properties, so
-   * overriding `transform` alone would leave the movement in place. Only the
-   * opt-in motion utilities are neutralised — `transform`/`translate` are also
-   * used for static centring elsewhere and must survive.
-   */
-  .lift:hover,
-  .raise:hover,
-  .pill:hover,
-  .pill:active {
-    translate: none !important;
-    scale: none !important;
-  }
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * shadcn's token layer, remapped onto the brand palette so every primitive
+ * (buttons, inputs, accordions) inherits the design system automatically.
+ */
+:root {
+  --radius: 0.875rem;
+
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --primary: #0f172a;
+  --primary-foreground: #ffffff;
+  --secondary: #f8fafc;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #647693;
+  --accent: #eff5ff;
+  --accent-foreground: #1d4ed8;
+  --destructive: #dc2626;
+  --border: #e6eaf0;
+  --input: #dfe4ec;
+  --ring: #2563eb;
 }
