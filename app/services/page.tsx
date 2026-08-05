@@ -35,7 +35,7 @@ export default function ServicesPage() {
             </span>
           </>
         }
-        description="From first look at the drawings to the sealed bid package — Datum delivers quantity takeoffs, cost models, and proposal support built for the bid calendar."
+        description="From first look at the drawings to the sealed bid package — Qostara delivers quantity takeoffs, cost models, and proposal support built for the bid calendar."
         actions={
           <>
             <Button
@@ -119,7 +119,7 @@ export default function ServicesPage() {
 
       <Section>
         <SectionHeading
-          eyebrow="Why teams choose Datum"
+          eyebrow="Why teams choose Qostara"
           title="The advantages that show up on every deliverable"
           description="Accuracy, speed, and transparency — without the overhead of a full in-house department."
         />
@@ -156,7 +156,7 @@ export default function ServicesPage() {
       <Section id="process" tone="ink" className="relative overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(37,99,235,0.22),transparent_70%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(36,103,160,0.22),transparent_70%)]"
         />
 
         <SectionHeading
@@ -197,7 +197,7 @@ export default function ServicesPage() {
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="eyebrow justify-center text-signal-600">
             <span aria-hidden className="h-px w-6 bg-signal-500/50" />
-            Why Datum
+            Why Qostara
           </p>
           <h2 className="mt-5 text-[2rem] leading-[1.1] font-semibold text-balance sm:text-4xl">
             Fewer jobs. Higher standards. Numbers you can defend.
@@ -206,7 +206,7 @@ export default function ServicesPage() {
             We take fewer accounts than the big outsourcing shops so every
             takeoff receives a peer review before it leaves the desk. Dual
             review, CSI-formatted deliverables, and a named estimator from
-            kickoff through award — that is the Datum difference.
+            kickoff through award — that is the Qostara difference.
           </p>
           <Button
             asChild

@@ -39,7 +39,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-pretty text-ink-500 sm:text-lg">
-              Datum turns drawings into bid-ready quantity takeoffs and cost
+              Qostara turns drawings into bid-ready quantity takeoffs and cost
               models — so general contractors and specialty trades bid with
               confidence, not guesswork.
             </p>

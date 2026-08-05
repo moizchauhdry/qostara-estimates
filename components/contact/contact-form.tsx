@@ -218,7 +218,7 @@ export function ContactForm() {
             htmlFor="contact-consent"
             className="cursor-pointer text-sm leading-relaxed text-ink-500"
           >
-            I agree that Datum may contact me about my enquiry and store my
+            I agree that Qostara may contact me about my enquiry and store my
             details in line with the privacy policy.
           </label>
         </div>

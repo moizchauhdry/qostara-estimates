@@ -13,7 +13,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Practical guides on quantity takeoffs, bid discipline, design-build costing, and regional labour trends from the Datum estimating team.",
+    "Practical guides on quantity takeoffs, bid discipline, design-build costing, and regional labour trends from the Qostara estimating team.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: `Blog — ${siteConfig.name}`,

@@ -18,7 +18,7 @@ export function Testimonials() {
     <Section id="testimonials">
       <SectionHeading
         eyebrow="Testimonials"
-        title="What estimators and GCs say about Datum"
+        title="What estimators and GCs say about Qostara"
         description="Real feedback from the people who stake their bid calendars on our numbers."
       />
 

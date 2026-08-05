@@ -1,6 +1,6 @@
-# Datum — Construction Cost Estimating
+# Qostara — Construction Cost Estimating
 
-Premium marketing site for **Datum**, a construction cost estimating firm. Built with Next.js App Router, TypeScript, Tailwind CSS v4, shadcn/ui, Lucide, and Framer Motion.
+Premium marketing site for **Qostara**, a construction cost estimating firm. Built with Next.js App Router, TypeScript, Tailwind CSS v4, shadcn/ui, Lucide, and Framer Motion.
 
 ## Pages
 

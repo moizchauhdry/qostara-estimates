@@ -369,7 +369,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Datum turned a 400-sheet healthcare set around in four days and caught two missing fire-rated assemblies our previous estimator had missed. We won the job.",
+      "Qostara turned a 400-sheet healthcare set around in four days and caught two missing fire-rated assemblies our previous estimator had missed. We won the job.",
     name: "Elena Vargas",
     role: "Chief Estimator",
     company: "Forge & Field GC",
@@ -387,7 +387,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "We used Datum for three design-build pursuits last year and awarded two. Their progressive cost model kept the design team honest without slowing anyone down.",
+      "We used Qostara for three design-build pursuits last year and awarded two. Their progressive cost model kept the design team honest without slowing anyone down.",
     name: "Priya Nair",
     role: "Project Director",
     company: "Lumen Design-Build",
@@ -457,10 +457,10 @@ export const faqs = [
   {
     question: "Do you offer ongoing estimating support?",
     answer:
-      "Many clients keep Datum on retainer for a book of work. That gives you priority scheduling and a named estimator who already knows your standards.",
+      "Many clients keep Qostara on retainer for a book of work. That gives you priority scheduling and a named estimator who already knows your standards.",
   },
   {
-    question: "Can owners and developers hire Datum directly?",
+    question: "Can owners and developers hire Qostara directly?",
     answer:
       "Yes. We produce independent quantity surveys and conceptual budgets for owners, developers, and lenders who need a second set of eyes on cost.",
   },
@@ -475,7 +475,7 @@ export const team = [
   {
     name: "Amelia Rowe",
     role: "Founder & Principal Estimator",
-    bio: "Former GC chief estimator. Built Datum to give mid-market contractors the same preconstruction depth as the nationals.",
+    bio: "Former GC chief estimator. Built Qostara to give mid-market contractors the same preconstruction depth as the nationals.",
     initials: "AR",
   },
   {
@@ -536,7 +536,7 @@ export const timeline = [
     year: "2013",
     title: "National reach",
     description:
-      "Remote delivery model lets Datum support projects across the continental U.S.",
+      "Remote delivery model lets Qostara support projects across the continental U.S.",
   },
   {
     year: "2018",

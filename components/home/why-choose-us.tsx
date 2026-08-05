@@ -4,9 +4,9 @@ import { whyChooseUs } from "@/lib/content";
 
 export function WhyChooseUs() {
   return (
-    <Section id="why-datum">
+    <Section id="why-qostara">
       <SectionHeading
-        eyebrow="Why Datum"
+        eyebrow="Why Qostara"
         title="The estimating partner that treats accuracy as the product"
         description="We take fewer jobs than the big outsourcing shops — so every takeoff can survive a peer review and a superintendent's scrutiny."
       />

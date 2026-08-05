@@ -10,7 +10,7 @@ export function Portfolio() {
       <SectionHeading
         eyebrow="Featured projects"
         title="Recent work across sectors and scales"
-        description="A sample of jobs where Datum's takeoffs and cost models helped contractors bid — and win."
+        description="A sample of jobs where Qostara's takeoffs and cost models helped contractors bid — and win."
       />
 
       <Stagger

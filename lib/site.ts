@@ -1,11 +1,12 @@
 export const siteConfig = {
-  name: "Datum",
-  legalName: "Datum Estimating Co.",
+  name: "Qostara",
+  legalName: "Qostara Estimates",
+  shortTagline: "Estimates",
   tagline: "Construction estimates that win more bids",
   description:
-    "Datum is a construction cost estimating firm that turns drawings into precise, bid-ready takeoffs — so general contractors and specialty trades win more work with fewer surprises.",
-  url: "https://datumestimates.com",
-  email: "hello@datumestimates.com",
+    "Qostara is a construction cost estimating firm that turns drawings into precise, bid-ready takeoffs — so general contractors and specialty trades win more work with fewer surprises.",
+  url: "https://qostaraestimates.com",
+  email: "hello@qostaraestimates.com",
   phone: "+1 (415) 555-0182",
   phoneHref: "tel:+14155550182",
   address: {

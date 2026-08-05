@@ -5,43 +5,43 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Ink — the structural navy the brand is built on (#0F172A at 950). */
-  --color-ink-50: #f6f7f9;
-  --color-ink-100: #eceef2;
-  --color-ink-200: #d5dae3;
-  --color-ink-300: #b0bacb;
-  --color-ink-400: #8494ad;
-  --color-ink-500: #647693;
-  --color-ink-600: #4f5e79;
-  --color-ink-700: #414c62;
-  --color-ink-800: #384153;
-  --color-ink-900: #1e293b;
-  --color-ink-950: #0f172a;
+  /* Ink — the structural navy taken from the Qostara mark (#1C3B57 at 800). */
+  --color-ink-50: #f5f7fa;
+  --color-ink-100: #e7edf4;
+  --color-ink-200: #cddbe8;
+  --color-ink-300: #a7bed4;
+  --color-ink-400: #7797b6;
+  --color-ink-500: #4d7295;
+  --color-ink-600: #3c5f80;
+  --color-ink-700: #2f4c68;
+  --color-ink-800: #1c3b57;
+  --color-ink-900: #142c42;
+  --color-ink-950: #0b1b29;
 
-  /* Signal blue — interactive colour, anchored on #2563EB. */
-  --color-signal-50: #eff5ff;
-  --color-signal-100: #dbe8fe;
-  --color-signal-200: #bfd7fe;
-  --color-signal-300: #93bcfd;
-  --color-signal-400: #609afa;
-  --color-signal-500: #3b82f6;
-  --color-signal-600: #2563eb;
-  --color-signal-700: #1d4ed8;
-  --color-signal-800: #1e40af;
-  --color-signal-900: #1e3a8a;
-  --color-signal-950: #172554;
+  /* Signal — the same navy hue opened up for interactive states (#2467A0). */
+  --color-signal-50: #eff6fc;
+  --color-signal-100: #dbebf8;
+  --color-signal-200: #bcdaf1;
+  --color-signal-300: #8dc0e6;
+  --color-signal-400: #579fd5;
+  --color-signal-500: #3381bd;
+  --color-signal-600: #2467a0;
+  --color-signal-700: #1f5482;
+  --color-signal-800: #1e476b;
+  --color-signal-900: #1d3d5b;
+  --color-signal-950: #13273c;
 
-  /* Amber — reserved for emphasis and measurement marks (#F59E0B). */
-  --color-marker-50: #fffbeb;
-  --color-marker-100: #fef3c7;
-  --color-marker-200: #fde68a;
-  --color-marker-300: #fcd34d;
-  --color-marker-400: #fbbf24;
-  --color-marker-500: #f59e0b;
-  --color-marker-600: #d97706;
-  --color-marker-700: #b45309;
+  /* Marker — the amber rule in the mark, reserved for emphasis (#EEA33D). */
+  --color-marker-50: #fef8ee;
+  --color-marker-100: #fbeed6;
+  --color-marker-200: #f7dbab;
+  --color-marker-300: #f3c377;
+  --color-marker-400: #f0ae4f;
+  --color-marker-500: #eea33d;
+  --color-marker-600: #d4842a;
+  --color-marker-700: #ac6522;
 
-  --color-surface: #f8fafc;
+  --color-surface: #f6f8fb;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -51,15 +51,15 @@
 
   /* Layered shadows — a tight contact shadow plus a wide diffuse one. */
   --shadow-soft:
-    0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 28px -12px rgba(15, 23, 42, 0.12);
+    0 1px 2px rgba(11, 27, 41, 0.04), 0 10px 28px -12px rgba(11, 27, 41, 0.12);
   --shadow-lifted:
-    0 2px 6px rgba(15, 23, 42, 0.05), 0 28px 60px -20px rgba(15, 23, 42, 0.2);
+    0 2px 6px rgba(11, 27, 41, 0.06), 0 28px 60px -20px rgba(11, 27, 41, 0.2);
   --shadow-float:
-    0 4px 10px rgba(15, 23, 42, 0.05), 0 44px 84px -28px rgba(15, 23, 42, 0.28);
+    0 4px 10px rgba(11, 27, 41, 0.06), 0 44px 84px -28px rgba(11, 27, 41, 0.28);
   --shadow-signal:
-    0 1px 2px rgba(37, 99, 235, 0.22), 0 14px 32px -12px rgba(37, 99, 235, 0.42);
+    0 1px 2px rgba(36, 103, 160, 0.22), 0 14px 32px -12px rgba(36, 103, 160, 0.42);
   --shadow-signal-lifted:
-    0 2px 4px rgba(37, 99, 235, 0.26), 0 26px 52px -14px rgba(37, 99, 235, 0.5);
+    0 2px 4px rgba(36, 103, 160, 0.26), 0 26px 52px -14px rgba(36, 103, 160, 0.5);
 
   --animate-fade-up: fade-up 0.8s var(--ease-smooth) both;
   --animate-drift: drift 22s ease-in-out infinite;
@@ -199,21 +199,21 @@
   --radius: 0.875rem;
 
   --background: #ffffff;
-  --foreground: #111827;
+  --foreground: #0b1b29;
   --card: #ffffff;
-  --card-foreground: #111827;
+  --card-foreground: #0b1b29;
   --popover: #ffffff;
-  --popover-foreground: #111827;
-  --primary: #0f172a;
+  --popover-foreground: #0b1b29;
+  --primary: #1c3b57;
   --primary-foreground: #ffffff;
-  --secondary: #f8fafc;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #647693;
-  --accent: #eff5ff;
-  --accent-foreground: #1d4ed8;
+  --secondary: #f6f8fb;
+  --secondary-foreground: #1c3b57;
+  --muted: #f6f8fb;
+  --muted-foreground: #4d7295;
+  --accent: #eff6fc;
+  --accent-foreground: #1f5482;
   --destructive: #dc2626;
-  --border: #e6eaf0;
-  --input: #dfe4ec;
-  --ring: #2563eb;
+  --border: #e3e9f1;
+  --input: #dae2ec;
+  --ring: #2467a0;
 }

@@ -14,7 +14,7 @@ export function BlueprintGrid({
   size?: number;
 }) {
   const line =
-    tone === "dark" ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.055)";
+    tone === "dark" ? "rgba(255,255,255,0.06)" : "rgba(11,27,41,0.055)";
 
   return (
     <div
@@ -88,18 +88,18 @@ export function TakeoffDrawing({ className }: { className?: string }) {
             y1="0"
             x2="0"
             y2="8"
-            stroke="#2563eb"
+            stroke="#2467a0"
             strokeWidth="1.5"
             opacity="0.35"
           />
         </pattern>
         <linearGradient id="plateFill" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#f8fafc" />
+          <stop offset="100%" stopColor="#f6f8fb" />
         </linearGradient>
         <linearGradient id="roomFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.14" />
-          <stop offset="100%" stopColor="#2563eb" stopOpacity="0.04" />
+          <stop offset="0%" stopColor="#2467a0" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#2467a0" stopOpacity="0.04" />
         </linearGradient>
       </defs>
 
@@ -110,7 +110,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
         height="468"
         rx="22"
         fill="url(#plateFill)"
-        stroke="#e6eaf0"
+        stroke="#e3e9f1"
         strokeWidth="1.5"
       />
 
@@ -123,7 +123,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
             y1="24"
             x2={40 * (index + 1)}
             y2="446"
-            stroke="#0f172a"
+            stroke="#0b1b29"
             strokeOpacity="0.045"
           />
         ))}
@@ -134,7 +134,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
             y1={40 * (index + 1) + 12}
             x2="616"
             y2={40 * (index + 1) + 12}
-            stroke="#0f172a"
+            stroke="#0b1b29"
             strokeOpacity="0.045"
           />
         ))}
@@ -144,13 +144,13 @@ export function TakeoffDrawing({ className }: { className?: string }) {
       <path
         d="M96 128 H392 V96 H520 V352 H352 V392 H96 Z"
         fill="#ffffff"
-        stroke="#0f172a"
+        stroke="#0b1b29"
         strokeWidth="3"
         strokeLinejoin="round"
       />
 
       {/* Interior partitions */}
-      <g stroke="#0f172a" strokeWidth="2" strokeOpacity="0.55">
+      <g stroke="#0b1b29" strokeWidth="2" strokeOpacity="0.55">
         <line x1="232" y1="128" x2="232" y2="392" />
         <line x1="232" y1="264" x2="520" y2="264" />
         <line x1="392" y1="96" x2="392" y2="264" />
@@ -164,12 +164,12 @@ export function TakeoffDrawing({ className }: { className?: string }) {
         y="99"
         width="122"
         height="162"
-        fill="#f59e0b"
+        fill="#eea33d"
         fillOpacity="0.12"
       />
 
       {/* Dimension line — overall width */}
-      <g stroke="#2563eb" strokeWidth="1.5">
+      <g stroke="#2467a0" strokeWidth="1.5">
         <line x1="96" y1="64" x2="520" y2="64" />
         <line x1="96" y1="56" x2="96" y2="72" />
         <line x1="520" y1="56" x2="520" y2="72" />
@@ -178,7 +178,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
         x="308"
         y="52"
         textAnchor="middle"
-        fill="#2563eb"
+        fill="#2467a0"
         fontSize="15"
         fontFamily="ui-monospace, monospace"
         fontWeight="600"
@@ -187,7 +187,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
       </text>
 
       {/* Dimension line — depth */}
-      <g stroke="#2563eb" strokeWidth="1.5">
+      <g stroke="#2467a0" strokeWidth="1.5">
         <line x1="60" y1="128" x2="60" y2="392" />
         <line x1="52" y1="128" x2="68" y2="128" />
         <line x1="52" y1="392" x2="68" y2="392" />
@@ -196,7 +196,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
         x="44"
         y="268"
         textAnchor="middle"
-        fill="#2563eb"
+        fill="#2467a0"
         fontSize="15"
         fontFamily="ui-monospace, monospace"
         fontWeight="600"
@@ -216,7 +216,7 @@ export function TakeoffDrawing({ className }: { className?: string }) {
             cx={point.x}
             cy={point.y}
             r="17"
-            fill="#0f172a"
+            fill="#0b1b29"
             stroke="#ffffff"
             strokeWidth="2.5"
           />
@@ -242,13 +242,13 @@ export function TakeoffDrawing({ className }: { className?: string }) {
           width="200"
           height="72"
           rx="12"
-          fill="#0f172a"
+          fill="#0b1b29"
           opacity="0.94"
         />
         <text
           x="412"
           y="396"
-          fill="#93bcfd"
+          fill="#8dc0e6"
           fontSize="11"
           fontFamily="ui-monospace, monospace"
           letterSpacing="1.5"
@@ -314,7 +314,7 @@ export function ProjectVisual({
                   rx="4"
                   fill="#ffffff"
                   fillOpacity="0.1"
-                  stroke="#93bcfd"
+                  stroke="#8dc0e6"
                   strokeOpacity="0.5"
                 />
                 {Array.from({ length: Math.floor(bar.h / 24) }).map((_, row) => (
@@ -324,7 +324,7 @@ export function ProjectVisual({
                     y1={236 - bar.h + 20 + row * 24}
                     x2={bar.x + bar.w - 6}
                     y2={236 - bar.h + 20 + row * 24}
-                    stroke="#609afa"
+                    stroke="#579fd5"
                     strokeOpacity="0.35"
                   />
                 ))}
@@ -335,7 +335,7 @@ export function ProjectVisual({
               y1="236"
               x2="336"
               y2="236"
-              stroke="#f59e0b"
+              stroke="#eea33d"
               strokeWidth="2.5"
             />
           </g>
@@ -357,17 +357,17 @@ export function ProjectVisual({
                 rx="6"
                 fill="#ffffff"
                 fillOpacity="0.09"
-                stroke="#93bcfd"
+                stroke="#8dc0e6"
                 strokeOpacity="0.5"
               />
             ))}
             <path
               d="M60 236 H344"
-              stroke="#f59e0b"
+              stroke="#eea33d"
               strokeWidth="2.5"
               strokeDasharray="10 8"
             />
-            <circle cx="128" cy="120" r="22" stroke="#609afa" fill="none" />
+            <circle cx="128" cy="120" r="22" stroke="#579fd5" fill="none" />
           </g>
         )}
 
@@ -375,7 +375,7 @@ export function ProjectVisual({
           <g>
             <path
               d="M50 218 Q200 84 350 218"
-              stroke="#93bcfd"
+              stroke="#8dc0e6"
               strokeWidth="3"
               fill="none"
             />
@@ -390,7 +390,7 @@ export function ProjectVisual({
                   y1={y}
                   x2={x}
                   y2="236"
-                  stroke="#609afa"
+                  stroke="#579fd5"
                   strokeOpacity="0.5"
                 />
               );
@@ -400,7 +400,7 @@ export function ProjectVisual({
               y1="236"
               x2="360"
               y2="236"
-              stroke="#f59e0b"
+              stroke="#eea33d"
               strokeWidth="2.5"
             />
           </g>
@@ -419,7 +419,7 @@ export function ProjectVisual({
                   rx="4"
                   fill="#ffffff"
                   fillOpacity={(row + col) % 3 === 0 ? 0.16 : 0.06}
-                  stroke="#93bcfd"
+                  stroke="#8dc0e6"
                   strokeOpacity="0.4"
                 />
               )),
@@ -429,7 +429,7 @@ export function ProjectVisual({
               y1="248"
               x2="334"
               y2="248"
-              stroke="#f59e0b"
+              stroke="#eea33d"
               strokeWidth="2.5"
             />
           </g>

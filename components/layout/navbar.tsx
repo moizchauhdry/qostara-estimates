@@ -41,7 +41,7 @@ export function Navbar() {
         aria-label="Primary"
         className="shell flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]"
       >
-        <Link href="/" aria-label="Datum home" className="rounded-xl">
+        <Link href="/" aria-label="Qostara home" className="rounded-xl">
           <Logo />
         </Link>
 

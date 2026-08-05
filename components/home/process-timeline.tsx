@@ -7,7 +7,7 @@ export function ProcessTimeline() {
     <Section id="process" tone="ink" className="relative overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(37,99,235,0.22),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_50%_0%,rgba(36,103,160,0.22),transparent_70%)]"
       />
 
       <SectionHeading

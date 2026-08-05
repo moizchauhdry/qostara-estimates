@@ -18,7 +18,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet the Datum team — construction cost estimators who treat accuracy as the product. Founded in 2008, serving contractors nationwide.",
+    "Meet the Qostara team — construction cost estimators who treat accuracy as the product. Founded in 2008, serving contractors nationwide.",
 };
 
 const foundingStats = [
@@ -76,10 +76,10 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-500 sm:text-lg">
               <p>
-                Amelia Rowe founded Datum in 2008 after a decade as a chief
+                Amelia Rowe founded Qostara in 2008 after a decade as a chief
                 estimator at a mid-market general contractor. She saw smaller
                 firms competing against nationals with a fraction of the
-                preconstruction depth — and built Datum to close that gap.
+                preconstruction depth — and built Qostara to close that gap.
               </p>
               <p>
                 Today we are a team of twenty-five-plus estimators, quantity

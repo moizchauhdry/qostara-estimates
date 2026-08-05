@@ -25,7 +25,7 @@ export function Statistics() {
         eyebrow="By the numbers"
         tone="dark"
         title="The results of treating estimating as a craft"
-        description="Aggregated across active accounts that have bid with Datum for at least one year."
+        description="Aggregated across active accounts that have bid with Qostara for at least one year."
       />
 
       <Stagger

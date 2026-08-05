@@ -13,7 +13,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Trades We Cover",
   description:
-    "Datum estimates every trade on the drawing set — concrete, steel, MEP, finishes, and site work — with dedicated specialty estimators for each scope.",
+    "Qostara estimates every trade on the drawing set — concrete, steel, MEP, finishes, and site work — with dedicated specialty estimators for each scope.",
   alternates: { canonical: "/trades" },
   openGraph: {
     title: `Trades We Cover — ${siteConfig.name}`,

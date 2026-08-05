@@ -17,7 +17,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach Datum for construction cost estimates, quantity takeoffs, and bid support. Upload drawings or book a scoping call — we reply within one business day.",
+    "Reach Qostara for construction cost estimates, quantity takeoffs, and bid support. Upload drawings or book a scoping call — we reply within one business day.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: `Contact — ${siteConfig.name}`,
@@ -120,7 +120,7 @@ export default function ContactPage() {
               className="panel relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-gradient-to-br from-ink-100 via-surface to-signal-50"
               aria-label="Map placeholder"
             >
-              <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
+              <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(11,27,41,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(11,27,41,0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
               <div className="relative text-center">
                 <MapPin
                   className="mx-auto size-8 text-signal-600"
