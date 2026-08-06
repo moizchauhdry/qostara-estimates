@@ -6,7 +6,12 @@
  */
 
 export { emailBrand } from "./brand";
-export { getEmailLogoUrl, getInlineLogoAttachment, LOGO_CONTENT_ID } from "./assets";
+export {
+  getEmailLogoUrl,
+  getInlineLogoAttachment,
+  usesInlineLogo,
+  LOGO_CONTENT_ID,
+} from "./assets";
 export * from "./components";
 export * from "./types";
 

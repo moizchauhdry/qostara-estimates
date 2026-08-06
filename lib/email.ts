@@ -1,5 +1,8 @@
 import { Resend } from "resend";
-import { getInlineLogoAttachment } from "@/emails/assets";
+import {
+  getInlineLogoAttachment,
+  usesInlineLogo,
+} from "@/emails/assets";
 import {
   internalQuoteNotificationEmail,
   quoteRequestConfirmationEmail,
@@ -20,28 +23,43 @@ export type ContactEmailPayload = {
   } | null;
 };
 
-function getResend() {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+function requireEnv(name: string) {
+  const value = process.env[name]?.trim();
+  if (!value) {
     throw new Error(
-      "RESEND_API_KEY is not set. Add it to .env.local to enable contact emails.",
+      `${name} is not set. Add it in the Vercel project Environment Variables (Production), then redeploy.`,
     );
   }
-  return new Resend(apiKey);
+  return value;
+}
+
+function getResend() {
+  return new Resend(requireEnv("RESEND_API_KEY"));
 }
 
 function fromAddress() {
-  return (
-    process.env.CONTACT_FROM_EMAIL ??
-    `${siteConfig.name} <onboarding@resend.dev>`
-  );
+  const raw =
+    process.env.CONTACT_FROM_EMAIL?.trim() ||
+    `${siteConfig.name} <onboarding@resend.dev>`;
+  // Dashboard/env pastes sometimes keep wrapping quotes
+  return raw.replace(/^["']|["']$/g, "");
+}
+
+function toAddress() {
+  return requireEnv("CONTACT_TO_EMAIL");
+}
+
+function logoAttachments() {
+  if (!usesInlineLogo()) return [];
+  const logo = getInlineLogoAttachment();
+  return logo ? [logo] : [];
 }
 
 export async function sendContactEmail(payload: ContactEmailPayload) {
   const resend = getResend();
-  const to = process.env.CONTACT_TO_EMAIL ?? siteConfig.email;
+  const to = toAddress();
   const from = fromAddress();
-  const logo = getInlineLogoAttachment();
+  const inlineLogo = logoAttachments();
 
   const internal = internalQuoteNotificationEmail({
     customer_name: payload.name,
@@ -62,7 +80,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     html: internal.html,
     text: internal.text,
     attachments: [
-      logo,
+      ...inlineLogo,
       ...(payload.drawing
         ? [
             {
@@ -98,7 +116,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
       subject: confirmation.subject,
       html: confirmation.html,
       text: confirmation.text,
-      attachments: [logo],
+      attachments: inlineLogo,
     });
   } catch (confirmationError) {
     console.error("Contact confirmation email failed:", confirmationError);

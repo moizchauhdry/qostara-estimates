@@ -41,10 +41,36 @@ npm run lint    # ESLint
 
 Submissions are sent with [Resend](https://resend.com).
 
+### Local
+
 1. Create an API key at https://resend.com/api-keys
-2. Copy `.env.example` to `.env.local` and set `RESEND_API_KEY`
-3. For local testing, keep `CONTACT_FROM_EMAIL` as `Qostara <onboarding@resend.dev>` (Resend only delivers to the account owner’s email)
-4. For production, verify `qostaraestimates.com` in Resend and set `CONTACT_FROM_EMAIL` / `CONTACT_TO_EMAIL` to your real addresses
+2. Copy `.env.example` to `.env` (or `.env.local`) and set:
+   - `RESEND_API_KEY`
+   - `CONTACT_TO_EMAIL` — with `onboarding@resend.dev`, this **must** be the email on your Resend account
+   - `CONTACT_FROM_EMAIL` — e.g. `Qostara <onboarding@resend.dev>`
+3. Restart `npm run dev`
+
+### Vercel (required for production)
+
+`.env` is **not** uploaded to Vercel. Add the same keys in the dashboard:
+
+1. Open the project → **Settings** → **Environment Variables**
+2. Add for **Production** (and Preview if you want):
+
+| Name | Example value |
+|------|----------------|
+| `RESEND_API_KEY` | `re_...` |
+| `CONTACT_TO_EMAIL` | your Resend account email |
+| `CONTACT_FROM_EMAIL` | `Qostara <onboarding@resend.dev>` |
+
+3. **Redeploy** after saving (env changes do not apply to old deployments)
+
+Until you verify `qostaraestimates.com` in Resend, keep using `onboarding@resend.dev` and only send to your Resend account email. After domain verification, set:
+
+```
+CONTACT_FROM_EMAIL=Qostara <hello@qostaraestimates.com>
+CONTACT_TO_EMAIL=hello@qostaraestimates.com
+```
 
 Drawing uploads (PDF/DWG, up to 25 MB) are attached to the notification email.
 
