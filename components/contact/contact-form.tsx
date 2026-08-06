@@ -39,12 +39,7 @@ export function ContactForm() {
   );
 
   return (
-    <form
-      action={formAction}
-      encType="multipart/form-data"
-      noValidate
-      className="panel p-7 sm:p-9"
-    >
+    <form action={formAction} noValidate className="panel p-7 sm:p-9">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           label="Full name"
@@ -253,14 +248,15 @@ export function ContactForm() {
         className={cn(
           "mt-5 flex items-start gap-2.5 text-sm",
           state.status === "sent" && "text-emerald-700",
-          state.status === "invalid" && "text-destructive",
+          (state.status === "invalid" || state.status === "error") &&
+            "text-destructive",
           state.status === "idle" && "text-ink-400",
         )}
       >
         {state.status === "sent" && (
           <CircleCheck className="mt-0.5 size-4 shrink-0" aria-hidden />
         )}
-        {state.status === "invalid" && (
+        {(state.status === "invalid" || state.status === "error") && (
           <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
         )}
         {state.message || "We reply to every message within one business day."}

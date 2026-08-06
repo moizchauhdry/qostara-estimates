@@ -1,5 +1,6 @@
 "use server";
 
+import { sendContactEmail } from "@/lib/email";
 import {
   contactFields,
   type ContactField,
@@ -98,8 +99,41 @@ export async function submitContactForm(
     };
   }
 
-  // Hand off to your CRM, ticketing system, or transactional email provider here.
-  await Promise.resolve();
+  try {
+    const drawingAttachment = drawingFile
+      ? {
+          filename: drawingFile.name,
+          content: Buffer.from(await drawingFile.arrayBuffer()),
+          contentType: drawingFile.type || undefined,
+        }
+      : null;
+
+    await sendContactEmail({
+      name: values.name,
+      email: values.email,
+      company: values.company,
+      phone: values.phone,
+      projectType: values.projectType,
+      message: values.message,
+      drawing: drawingAttachment,
+    });
+  } catch (error) {
+    console.error("Contact form email failed:", error);
+    const detail = error instanceof Error ? error.message : "";
+    const isConfigIssue =
+      /api key|RESEND_API_KEY|invalid_from|only send testing|not authorized|domain/i.test(
+        detail,
+      );
+
+    return {
+      status: "error",
+      message: isConfigIssue
+        ? "Email isn’t configured correctly yet. Check RESEND_API_KEY and CONTACT_TO_EMAIL in .env, then restart the server."
+        : "We couldn't send your message just now. Please try again or email us directly.",
+      errors: {},
+      values,
+    };
+  }
 
   return {
     status: "sent",

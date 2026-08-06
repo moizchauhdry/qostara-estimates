@@ -17,7 +17,7 @@ export const contactFields = [
 export type ContactField = (typeof contactFields)[number];
 
 export type ContactFormState = {
-  status: "idle" | "invalid" | "sent";
+  status: "idle" | "invalid" | "sent" | "error";
   message: string;
   errors: Partial<Record<ContactField | "drawings", string>>;
   /** Echoed back so a rejected submission never loses what was typed. */
