@@ -406,9 +406,32 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const trustStats = [
-  { value: 18, suffix: "+", label: "Years of experience" },
-  { value: 10000, suffix: "+", label: "Projects completed" },
-  { value: 98, suffix: "%", label: "Customer satisfaction" },
+  {
+    value: 10000,
+    suffix: "+",
+    label: "Projects completed",
+    detail: "Commercial, healthcare & industrial",
+  },
+  {
+    value: 98.4,
+    suffix: "%",
+    decimals: 1,
+    label: "Avg. takeoff accuracy",
+    detail: "Measured vs awarded cost",
+  },
+  {
+    value: 22,
+    suffix: "%",
+    prefix: "+",
+    label: "Win-rate lift",
+    detail: "Median after 90 days",
+  },
+  {
+    value: 4,
+    suffix: " days",
+    label: "Typical turnaround",
+    detail: "Most commercial packages",
+  },
 ] as const;
 
 export const impactStats = [
@@ -744,11 +767,11 @@ export const blogCategories = [
   "Business",
 ] as const;
 
-export const trustLogos = [
-  "Forge & Field",
-  "Apex Structures",
-  "Lumen DB",
-  "Harborline",
-  "Northridge",
-  "Hale Electric",
+export const trustPartners = [
+  { name: "Forge & Field", mark: "FF", focus: "General contractor" },
+  { name: "Apex Structures", mark: "AS", focus: "Structural steel" },
+  { name: "Lumen Design-Build", mark: "LD", focus: "Design-build" },
+  { name: "Harborline", mark: "HL", focus: "Industrial GC" },
+  { name: "Northridge", mark: "NR", focus: "Healthcare" },
+  { name: "Hale Electric", mark: "HE", focus: "Electrical" },
 ] as const;

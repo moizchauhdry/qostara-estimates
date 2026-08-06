@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { ArrowUpRight, Check, Play } from "lucide-react";
-import { TakeoffDrawing, GlowField, BlueprintGrid } from "@/components/shared/graphics";
+import { TrustBand } from "@/components/home/logo-cloud";
+import {
+  TakeoffDrawing,
+  GlowField,
+  BlueprintGrid,
+} from "@/components/shared/graphics";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
 
@@ -18,14 +23,14 @@ const floatCards = [
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-b from-surface via-white to-white">
+    <section className="relative isolate overflow-hidden bg-gradient-to-b from-surface via-white to-surface">
       <GlowField tone="mixed" />
       <BlueprintGrid
-        className="opacity-70 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_40%,transparent_100%)]"
+        className="opacity-70 [mask-image:radial-gradient(ellipse_70%_55%_at_50%_0%,#000_40%,transparent_100%)]"
         size={64}
       />
 
-      <div className="shell relative grid items-center gap-12 pt-16 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pt-24 lg:pb-28">
+      <div className="shell relative grid items-center gap-12 pt-16 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pt-24 lg:pb-16">
         <div>
           <Reveal>
             <p className="eyebrow text-signal-600">
@@ -61,7 +66,10 @@ export function Hero() {
               className="h-12 rounded-full border-ink-200 bg-white/80 px-7 text-base text-ink-800 backdrop-blur hover:bg-white"
             >
               <Link href="/services">
-                <Play data-icon="inline-start" className="size-3.5 fill-current" />
+                <Play
+                  data-icon="inline-start"
+                  className="size-3.5 fill-current"
+                />
                 See how it works
               </Link>
             </Button>
@@ -113,6 +121,8 @@ export function Hero() {
           ))}
         </Reveal>
       </div>
+
+      <TrustBand />
     </section>
   );
 }
