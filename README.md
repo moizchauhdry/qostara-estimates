@@ -48,6 +48,10 @@ Submissions are sent with [Resend](https://resend.com).
 
 Drawing uploads (PDF/DWG, up to 25 MB) are attached to the notification email.
 
+## Email templates
+
+Premium HTML emails live in [`emails/`](./emails). Contact form submissions send a branded internal notification plus a customer confirmation via Resend. See [`emails/README.md`](./emails/README.md) for all 15 templates and usage.
+
 ## Architecture
 
 ```

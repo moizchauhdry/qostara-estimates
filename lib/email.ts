@@ -1,4 +1,9 @@
 import { Resend } from "resend";
+import { getInlineLogoAttachment } from "@/emails/assets";
+import {
+  internalQuoteNotificationEmail,
+  quoteRequestConfirmationEmail,
+} from "@/emails";
 import { siteConfig } from "@/lib/site";
 
 export type ContactEmailPayload = {
@@ -25,96 +30,78 @@ function getResend() {
   return new Resend(apiKey);
 }
 
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-function buildText(payload: ContactEmailPayload) {
-  const lines = [
-    `New contact enquiry from ${payload.name}`,
-    "",
-    `Name: ${payload.name}`,
-    `Email: ${payload.email}`,
-    `Company: ${payload.company || "—"}`,
-    `Phone: ${payload.phone || "—"}`,
-    `Project type: ${payload.projectType}`,
-    "",
-    "Message:",
-    payload.message,
-  ];
-
-  if (payload.drawing) {
-    lines.push("", `Attachment: ${payload.drawing.filename}`);
-  }
-
-  return lines.join("\n");
-}
-
-function buildHtml(payload: ContactEmailPayload) {
-  const rows: [string, string][] = [
-    ["Name", payload.name],
-    ["Email", payload.email],
-    ["Company", payload.company || "—"],
-    ["Phone", payload.phone || "—"],
-    ["Project type", payload.projectType],
-  ];
-
-  return `
-    <div style="font-family: ui-sans-serif, system-ui, sans-serif; color: #0f172a; line-height: 1.5;">
-      <h1 style="font-size: 18px; margin: 0 0 16px;">New contact enquiry</h1>
-      <table style="border-collapse: collapse; width: 100%; max-width: 560px;">
-        ${rows
-          .map(
-            ([label, value]) => `
-          <tr>
-            <td style="padding: 8px 12px 8px 0; vertical-align: top; color: #64748b; white-space: nowrap;">${escapeHtml(label)}</td>
-            <td style="padding: 8px 0; vertical-align: top;">${escapeHtml(value)}</td>
-          </tr>`,
-          )
-          .join("")}
-      </table>
-      <p style="margin: 20px 0 8px; color: #64748b;">Message</p>
-      <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(payload.message)}</p>
-      ${
-        payload.drawing
-          ? `<p style="margin: 20px 0 0; color: #64748b;">Attachment: ${escapeHtml(payload.drawing.filename)}</p>`
-          : ""
-      }
-    </div>
-  `.trim();
+function fromAddress() {
+  return (
+    process.env.CONTACT_FROM_EMAIL ??
+    `${siteConfig.name} <onboarding@resend.dev>`
+  );
 }
 
 export async function sendContactEmail(payload: ContactEmailPayload) {
   const resend = getResend();
   const to = process.env.CONTACT_TO_EMAIL ?? siteConfig.email;
-  const from =
-    process.env.CONTACT_FROM_EMAIL ??
-    `${siteConfig.name} <onboarding@resend.dev>`;
+  const from = fromAddress();
+  const logo = getInlineLogoAttachment();
+
+  const internal = internalQuoteNotificationEmail({
+    customer_name: payload.name,
+    email: payload.email,
+    company_name: payload.company,
+    phone: payload.phone,
+    project_type: payload.projectType,
+    message: payload.message,
+    drawing_filename: payload.drawing?.filename,
+    cta_link: `${siteConfig.url}/contact`,
+  });
 
   const { data, error } = await resend.emails.send({
     from,
     to: [to],
     replyTo: payload.email,
-    subject: `New enquiry: ${payload.projectType} — ${payload.name}`,
-    text: buildText(payload),
-    html: buildHtml(payload),
-    attachments: payload.drawing
-      ? [
-          {
-            filename: payload.drawing.filename,
-            content: payload.drawing.content,
-            contentType: payload.drawing.contentType,
-          },
-        ]
-      : undefined,
+    subject: internal.subject,
+    html: internal.html,
+    text: internal.text,
+    attachments: [
+      logo,
+      ...(payload.drawing
+        ? [
+            {
+              filename: payload.drawing.filename,
+              content: payload.drawing.content,
+              contentType: payload.drawing.contentType,
+            },
+          ]
+        : []),
+    ],
   });
 
   if (error) {
     throw new Error(error.message);
+  }
+
+  // Best-effort confirmation to the prospect (don’t fail the enquiry if this bounces)
+  try {
+    const confirmation = quoteRequestConfirmationEmail({
+      customer_name: payload.name,
+      company_name: payload.company,
+      phone: payload.phone,
+      project_type: payload.projectType,
+      message: payload.message,
+      drawing_filename: payload.drawing?.filename,
+      cta_link: `${siteConfig.url}/contact`,
+    });
+
+    await resend.emails.send({
+      from,
+      to: [payload.email],
+      replyTo: siteConfig.email,
+      subject: confirmation.subject,
+      html: confirmation.html,
+      text: confirmation.text,
+      attachments: [logo],
+    });
+  } catch (confirmationError) {
+    console.error("Contact confirmation email failed:", confirmationError);
   }
 
   return data;
