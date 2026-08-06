@@ -24,11 +24,11 @@ const socials = [
 export function Footer() {
   return (
     <footer className="bg-ink-950 text-ink-300">
-      <div className="shell pt-16 pb-10 sm:pt-20">
-        <div className="grid gap-12 lg:grid-cols-[1.35fr_2.65fr] lg:gap-16">
-          <div>
+      <div className="shell min-w-0 pt-16 pb-10 sm:pt-20">
+        <div className="grid min-w-0 gap-12 lg:grid-cols-[1.35fr_2.65fr] lg:gap-16">
+          <div className="min-w-0">
             <Logo inverted />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink-400">
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-pretty text-ink-400">
               {siteConfig.description}
             </p>
 
@@ -39,7 +39,7 @@ export function Footer() {
               >
                 Monthly estimating brief
               </label>
-              <div className="mt-3 flex flex-col gap-2.5 sm:flex-row">
+              <div className="mt-3 flex min-w-0 flex-col gap-2.5 sm:flex-row">
                 <Input
                   id="newsletter-email"
                   type="email"
@@ -47,7 +47,7 @@ export function Footer() {
                   required
                   autoComplete="email"
                   placeholder="you@company.com"
-                  className="h-11 rounded-full border-white/15 bg-white/5 text-white placeholder:text-ink-500 focus-visible:border-signal-400 focus-visible:ring-signal-500/30"
+                  className="h-11 min-w-0 rounded-full border-white/15 bg-white/5 text-white placeholder:text-ink-500 focus-visible:border-signal-400 focus-visible:ring-signal-500/30"
                 />
                 <Button
                   type="submit"
@@ -65,7 +65,7 @@ export function Footer() {
 
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-10 sm:grid-cols-4"
+            className="grid min-w-0 grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-10"
           >
             <FooterColumn heading="Company">
               {navLinks.map((link) => (
@@ -106,12 +106,12 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="footer-link"
+                  className="footer-link break-all"
                 >
                   {siteConfig.email}
                 </a>
               </li>
-              <li className="text-sm leading-relaxed text-ink-400">
+              <li className="text-sm leading-relaxed break-words text-ink-400">
                 {siteConfig.address.line1}
                 <br />
                 {siteConfig.address.city}
@@ -169,9 +169,9 @@ function FooterColumn({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <h3 className="text-sm font-semibold text-white">{heading}</h3>
-      <ul className="mt-4 space-y-3 [&_.footer-link]:inline-block [&_.footer-link]:text-sm [&_.footer-link]:text-ink-400 [&_.footer-link]:transition [&_.footer-link]:duration-300 [&_.footer-link]:hover:translate-x-0.5 [&_.footer-link]:hover:text-white">
+      <ul className="mt-4 space-y-3 [&_.footer-link]:inline-block [&_.footer-link]:max-w-full [&_.footer-link]:text-sm [&_.footer-link]:break-words [&_.footer-link]:text-ink-400 [&_.footer-link]:transition [&_.footer-link]:duration-300 [&_.footer-link]:hover:translate-x-0.5 [&_.footer-link]:hover:text-white">
         {children}
       </ul>
     </div>

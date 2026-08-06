@@ -44,17 +44,20 @@ export function GlowField({
   return (
     <div
       aria-hidden
-      className={cn("pointer-events-none absolute inset-0 -z-10", className)}
+      className={cn(
+        "pointer-events-none absolute inset-0 -z-10 overflow-hidden",
+        className,
+      )}
     >
       <div
         className={cn(
-          "animate-drift absolute -top-32 -left-24 size-[28rem] rounded-full blur-3xl",
+          "animate-drift absolute -top-32 -left-24 size-[min(28rem,100vw)] rounded-full blur-3xl",
           primary,
         )}
       />
       <div
         className={cn(
-          "animate-drift absolute -top-24 -right-32 size-[26rem] rounded-full blur-3xl [animation-delay:-8s]",
+          "animate-drift absolute -top-24 -right-32 size-[min(26rem,100vw)] rounded-full blur-3xl [animation-delay:-8s]",
           secondary,
         )}
       />

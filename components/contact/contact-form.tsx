@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useState, type ReactNode } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   CircleCheck,
   LoaderCircle,
@@ -12,6 +18,7 @@ import { submitContactForm } from "@/app/actions/contact";
 import {
   initialContactState,
   projectTypes,
+  type ContactFormState,
 } from "@/app/actions/contact-state";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,17 +37,49 @@ const fieldClassName =
   "h-11 rounded-xl border-ink-200 bg-white px-3.5 text-sm shadow-xs transition duration-300 ease-smooth placeholder:text-ink-400 hover:border-ink-300 focus-visible:ring-signal-500/20";
 
 export function ContactForm() {
+  const scrollYRef = useRef(0);
+  const statusRef = useRef<HTMLParagraphElement>(null);
+  const [projectType, setProjectType] = useState("");
+
   const [state, formAction, pending] = useActionState(
-    submitContactForm,
+    async (previous: ContactFormState, formData: FormData) => {
+      scrollYRef.current = window.scrollY;
+      return submitContactForm(previous, formData);
+    },
     initialContactState,
   );
-  const [projectType, setProjectType] = useState(
-    state.values.projectType ?? "",
-  );
+
+  useEffect(() => {
+    if (state.status === "idle") return;
+
+    // Server Actions can reset scroll to the top; keep the user on the form.
+    window.scrollTo({ top: scrollYRef.current, behavior: "auto" });
+
+    if (state.status === "invalid" || state.status === "error") {
+      const firstError = document.querySelector<HTMLElement>(
+        "[aria-invalid=true]",
+      );
+      firstError?.focus({ preventScroll: true });
+    } else if (state.status === "sent") {
+      statusRef.current?.focus({ preventScroll: true });
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (state.status === "sent") {
+      setProjectType("");
+    } else if (state.values.projectType) {
+      setProjectType(state.values.projectType);
+    }
+  }, [state.status, state.values.projectType]);
 
   return (
-    <form action={formAction} noValidate className="panel p-7 sm:p-9">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form
+      action={formAction}
+      noValidate
+      className="panel w-full min-w-0 max-w-full overflow-hidden p-5 sm:p-7 lg:p-9"
+    >
+      <div className="grid min-w-0 gap-5 sm:grid-cols-2">
         <Field
           label="Full name"
           name="name"
@@ -123,7 +162,10 @@ export function ContactForm() {
                 >
                   <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent
+                  position="popper"
+                  className="w-(--radix-select-trigger-width)"
+                >
                   {projectTypes.map((type) => (
                     <SelectItem key={type} value={type}>
                       {type}
@@ -243,10 +285,12 @@ export function ContactForm() {
       </Button>
 
       <p
+        ref={statusRef}
+        tabIndex={-1}
         aria-live="polite"
         role="status"
         className={cn(
-          "mt-5 flex items-start gap-2.5 text-sm",
+          "mt-5 flex items-start gap-2.5 text-sm outline-none",
           state.status === "sent" && "text-emerald-700",
           (state.status === "invalid" || state.status === "error") &&
             "text-destructive",
@@ -292,7 +336,7 @@ function Field({
   const errorId = `${id}-error`;
 
   return (
-    <div className={className}>
+    <div className={cn("min-w-0", className)}>
       <Label
         htmlFor={id}
         className="flex items-baseline justify-between gap-2 text-sm font-medium text-ink-950"
@@ -302,7 +346,7 @@ function Field({
           <span className="text-xs font-normal text-ink-400">Optional</span>
         )}
       </Label>
-      <div className="mt-2">
+      <div className="mt-2 min-w-0">
         {children({
           id,
           name,

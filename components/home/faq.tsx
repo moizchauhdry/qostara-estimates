@@ -34,8 +34,8 @@ export function Faq({ items = faqs, id = "faq" }: FaqProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <div className="shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-        <div className="lg:sticky lg:top-32 lg:self-start">
+      <div className="shell grid w-full min-w-0 gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
           <SectionHeading
             eyebrow="FAQ"
             align="left"
@@ -55,18 +55,18 @@ export function Faq({ items = faqs, id = "faq" }: FaqProps) {
           </Reveal>
         </div>
 
-        <Reveal>
-          <Accordion type="single" collapsible className="space-y-3">
+        <Reveal className="min-w-0">
+          <Accordion type="single" collapsible className="w-full min-w-0 space-y-3">
             {items.map((item, index) => (
               <AccordionItem
                 key={item.question}
                 value={`item-${index}`}
-                className="panel border-none px-5 data-[state=open]:shadow-lifted sm:px-6"
+                className="panel border-none px-4 data-[state=open]:shadow-lifted sm:px-6"
               >
-                <AccordionTrigger className="py-5 text-left text-base font-semibold text-ink-950 hover:no-underline">
+                <AccordionTrigger className="py-5 text-left text-base font-semibold break-words text-ink-950 hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-sm leading-relaxed text-ink-500 sm:text-base">
+                <AccordionContent className="pb-5 text-sm leading-relaxed text-pretty text-ink-500 sm:text-base">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
