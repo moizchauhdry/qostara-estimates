@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+sh scripts/validate-dist-branch.sh
+npx lint-staged

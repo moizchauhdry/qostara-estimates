@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -e
+sh scripts/validate-dist-branch.sh
+npm run validate
+sh scripts/pre-push-main-build.sh

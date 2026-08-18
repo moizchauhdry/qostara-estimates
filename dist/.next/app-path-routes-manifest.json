@@ -1,0 +1,16 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/apple-icon.png/route": "/apple-icon.png",
+  "/blog/page": "/blog",
+  "/contact/page": "/contact",
+  "/favicon.ico/route": "/favicon.ico",
+  "/icon.png/route": "/icon.png",
+  "/page": "/",
+  "/pricing/page": "/pricing",
+  "/robots.txt/route": "/robots.txt",
+  "/services/page": "/services",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/trades/page": "/trades"
+}

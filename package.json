@@ -5,9 +5,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:dist": "node scripts/build-dist.mjs",
     "start": "next start",
+    "start:cpanel": "node server.js",
+    "deploy:cpanel": "sh scripts/cpanel-deploy.sh",
     "lint": "eslint",
-    "email:preview": "tsx emails/preview.ts"
+    "type-check": "tsc --noEmit",
+    "validate": "npm run lint && npm run type-check",
+    "email:preview": "tsx emails/preview.ts",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs}": "eslint --fix"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -32,6 +41,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.9",
     "typescript": "^5"

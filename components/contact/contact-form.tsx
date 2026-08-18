@@ -40,6 +40,10 @@ export function ContactForm() {
   const scrollYRef = useRef(0);
   const statusRef = useRef<HTMLParagraphElement>(null);
   const [projectType, setProjectType] = useState("");
+  const [syncedFrom, setSyncedFrom] = useState({
+    status: "idle" as ContactFormState["status"],
+    projectType: "",
+  });
 
   const [state, formAction, pending] = useActionState(
     async (previous: ContactFormState, formData: FormData) => {
@@ -65,13 +69,18 @@ export function ContactForm() {
     }
   }, [state]);
 
-  useEffect(() => {
+  const serverProjectType = state.values.projectType ?? "";
+  if (
+    state.status !== syncedFrom.status ||
+    serverProjectType !== syncedFrom.projectType
+  ) {
+    setSyncedFrom({ status: state.status, projectType: serverProjectType });
     if (state.status === "sent") {
       setProjectType("");
-    } else if (state.values.projectType) {
-      setProjectType(state.values.projectType);
+    } else if (serverProjectType) {
+      setProjectType(serverProjectType);
     }
-  }, [state.status, state.values.projectType]);
+  }
 
   return (
     <form

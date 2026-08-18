@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "dist/**",
+    "server.js",
+    "scripts/build-dist.mjs",
+    "scripts/cpanel-deploy.sh",
+    "scripts/pre-push-main-build.sh",
+    "scripts/validate-dist-branch.sh",
   ]),
 ]);
 
