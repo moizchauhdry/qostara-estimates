@@ -2,7 +2,7 @@
  * Qostara email template system
  *
  * Table-based, inline-CSS HTML emails with Outlook VML buttons.
- * Import a template function, pass variables, send `{ subject, html, text }` via Resend.
+ * Import a template function, pass variables, send `{ subject, html, text }` via SMTP.
  */
 
 export { emailBrand } from "./brand";

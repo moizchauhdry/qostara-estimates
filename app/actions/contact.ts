@@ -121,14 +121,14 @@ export async function submitContactForm(
     console.error("Contact form email failed:", error);
     const detail = error instanceof Error ? error.message : "";
     const isConfigIssue =
-      /api key|RESEND_API_KEY|CONTACT_TO_EMAIL|invalid_from|only send testing|not authorized|domain|Environment Variables/i.test(
+      /SMTP_USER|SMTP_PASS|SMTP_HOST|CONTACT_TO_EMAIL|EAUTH|Invalid login|authentication failed|Environment Variables/i.test(
         detail,
       );
 
     return {
       status: "error",
       message: isConfigIssue
-        ? "Email isn’t configured on this deployment. Add RESEND_API_KEY, CONTACT_TO_EMAIL, and CONTACT_FROM_EMAIL in Vercel → Settings → Environment Variables, then redeploy."
+        ? "Email isn’t configured on this server. Add SMTP_USER, SMTP_PASS, and CONTACT_TO_EMAIL to .env, then restart the app."
         : "We couldn't send your message just now. Please try again or email us directly.",
       errors: {},
       values,

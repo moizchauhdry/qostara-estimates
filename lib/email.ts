@@ -1,4 +1,5 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
+import type { SendMailOptions, Transporter } from "nodemailer";
 import {
   getInlineLogoAttachment,
   usesInlineLogo,
@@ -23,25 +24,50 @@ export type ContactEmailPayload = {
   } | null;
 };
 
+type MailAttachment = {
+  filename: string;
+  content: Buffer;
+  contentType?: string;
+  cid?: string;
+};
+
+let transporter: Transporter | null = null;
+
 function requireEnv(name: string) {
   const value = process.env[name]?.trim();
   if (!value) {
     throw new Error(
-      `${name} is not set. Add it in the Vercel project Environment Variables (Production), then redeploy.`,
+      `${name} is not set. Add it to .env on the server, then restart the Node app.`,
     );
   }
   return value;
 }
 
-function getResend() {
-  return new Resend(requireEnv("RESEND_API_KEY"));
+function getTransporter() {
+  if (transporter) return transporter;
+
+  const host = process.env.SMTP_HOST?.trim() || "qostaraestimates.com";
+  const port = Number(process.env.SMTP_PORT || 465);
+
+  transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: {
+      user: requireEnv("SMTP_USER"),
+      pass: requireEnv("SMTP_PASS"),
+    },
+  });
+
+  return transporter;
 }
 
 function fromAddress() {
+  const mailbox = process.env.SMTP_USER?.trim() || "info@qostaraestimates.com";
   const raw =
     process.env.CONTACT_FROM_EMAIL?.trim() ||
-    `${siteConfig.name} <onboarding@resend.dev>`;
-  // Dashboard/env pastes sometimes keep wrapping quotes
+    `${siteConfig.name} <${mailbox}>`;
+  // Env pastes sometimes keep wrapping quotes
   return raw.replace(/^["']|["']$/g, "");
 }
 
@@ -49,14 +75,54 @@ function toAddress() {
   return requireEnv("CONTACT_TO_EMAIL");
 }
 
-function logoAttachments() {
+function logoAttachments(): MailAttachment[] {
   if (!usesInlineLogo()) return [];
   const logo = getInlineLogoAttachment();
   return logo ? [logo] : [];
 }
 
+function toNodemailerAttachments(
+  attachments: MailAttachment[],
+): NonNullable<SendMailOptions["attachments"]> {
+  return attachments.map((attachment) => ({
+    filename: attachment.filename,
+    content: attachment.content,
+    contentType: attachment.contentType,
+    cid: attachment.cid,
+  }));
+}
+
+export async function sendMail({
+  to,
+  from,
+  replyTo,
+  subject,
+  html,
+  text,
+  attachments = [],
+}: {
+  to: string | string[];
+  from?: string;
+  replyTo?: string;
+  subject: string;
+  html: string;
+  text?: string;
+  attachments?: MailAttachment[];
+}) {
+  const info = await getTransporter().sendMail({
+    from: from ?? fromAddress(),
+    to,
+    replyTo,
+    subject,
+    html,
+    text,
+    attachments: toNodemailerAttachments(attachments),
+  });
+
+  return info;
+}
+
 export async function sendContactEmail(payload: ContactEmailPayload) {
-  const resend = getResend();
   const to = toAddress();
   const from = fromAddress();
   const inlineLogo = logoAttachments();
@@ -72,9 +138,9 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     cta_link: `${siteConfig.url}/contact`,
   });
 
-  const { data, error } = await resend.emails.send({
+  const info = await sendMail({
     from,
-    to: [to],
+    to,
     replyTo: payload.email,
     subject: internal.subject,
     html: internal.html,
@@ -93,11 +159,7 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     ],
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  // Best-effort confirmation to the prospect (don’t fail the enquiry if this bounces)
+  // Best-effort confirmation to the prospect (don't fail the enquiry if this bounces)
   try {
     const confirmation = quoteRequestConfirmationEmail({
       customer_name: payload.name,
@@ -109,10 +171,10 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
       cta_link: `${siteConfig.url}/contact`,
     });
 
-    await resend.emails.send({
+    await sendMail({
       from,
-      to: [payload.email],
-      replyTo: siteConfig.email,
+      to: payload.email,
+      replyTo: process.env.SMTP_USER?.trim() || siteConfig.email,
       subject: confirmation.subject,
       html: confirmation.html,
       text: confirmation.text,
@@ -122,5 +184,5 @@ export async function sendContactEmail(payload: ContactEmailPayload) {
     console.error("Contact confirmation email failed:", confirmationError);
   }
 
-  return data;
+  return info;
 }

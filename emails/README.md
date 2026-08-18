@@ -34,7 +34,7 @@ Production-ready, table-based HTML emails for transactional and marketing use. B
 ## Usage
 
 ```ts
-import { Resend } from "resend";
+import { sendMail } from "@/lib/email";
 import { estimateReadyEmail } from "@/emails";
 
 const email = estimateReadyEmail({
@@ -46,8 +46,7 @@ const email = estimateReadyEmail({
   cta_link: "https://qostaraestimates.com/estimates/QST-2048",
 });
 
-await new Resend(process.env.RESEND_API_KEY).emails.send({
-  from: "Qostara <hello@qostaraestimates.com>",
+await sendMail({
   to: "jordan@company.com",
   subject: email.subject,
   html: email.html,
@@ -67,7 +66,7 @@ EMAIL_LOGO_URL=https://qostaraestimates.com/brand/logo.png
 EMAIL_ASSET_BASE_URL=https://qostaraestimates.com
 ```
 
-Always include `getInlineLogoAttachment()` when sending via Resend if you are still using the CID fallback.
+Always include `getInlineLogoAttachment()` when sending if you are still using the CID fallback.
 
 Common placeholders (pass as object keys — values are escaped in HTML):
 

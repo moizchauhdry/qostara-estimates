@@ -57,14 +57,14 @@ export function usesInlineLogo() {
   return getEmailLogoUrl().startsWith("cid:");
 }
 
-/** Inline logo attachment for Resend (`contentId` → `cid:qostara-logo` in HTML) */
+/** Inline logo attachment for SMTP (`cid` → `cid:qostara-logo` in HTML) */
 export function getInlineLogoAttachment() {
   try {
     return {
       filename: "logo.png",
       content: readFileSync(publicBrandPath("logo.png")),
       contentType: "image/png" as const,
-      contentId: LOGO_CONTENT_ID,
+      cid: LOGO_CONTENT_ID,
     };
   } catch (error) {
     console.error("Could not read email logo from disk:", error);

@@ -39,44 +39,28 @@ npm run lint    # ESLint
 
 ## Contact form email
 
-Submissions are sent with [Resend](https://resend.com).
+Submissions are sent through the cPanel mailbox over SMTP (`qostaraestimates.com:465`). IMAP (993) and POP3 (995) are only for reading mail in Outlook/Apple Mail — the website does not need them.
 
-### Local
+### Local and cPanel
 
-1. Create an API key at https://resend.com/api-keys
-2. Copy `.env.example` to `.env` (or `.env.local`) and set:
-   - `RESEND_API_KEY`
-   - `CONTACT_TO_EMAIL` — with `onboarding@resend.dev`, this **must** be the email on your Resend account
-   - `CONTACT_FROM_EMAIL` — e.g. `Qostara <onboarding@resend.dev>`
-3. Restart `npm run dev`
-
-### Vercel (required for production)
-
-`.env` is **not** uploaded to Vercel. Add the same keys in the dashboard:
-
-1. Open the project → **Settings** → **Environment Variables**
-2. Add for **Production** (and Preview if you want):
+Copy `.env.example` to `.env` and set:
 
 | Name | Example value |
 |------|----------------|
-| `RESEND_API_KEY` | `re_...` |
-| `CONTACT_TO_EMAIL` | your Resend account email |
-| `CONTACT_FROM_EMAIL` | `Qostara <onboarding@resend.dev>` |
+| `SMTP_HOST` | `qostaraestimates.com` |
+| `SMTP_PORT` | `465` |
+| `SMTP_USER` | `info@qostaraestimates.com` |
+| `SMTP_PASS` | the mailbox password |
+| `CONTACT_TO_EMAIL` | `info@qostaraestimates.com` |
+| `CONTACT_FROM_EMAIL` | `Qostara <info@qostaraestimates.com>` |
 
-3. **Redeploy** after saving (env changes do not apply to old deployments)
-
-Until you verify `qostaraestimates.com` in Resend, keep using `onboarding@resend.dev` and only send to your Resend account email. After domain verification, set:
-
-```
-CONTACT_FROM_EMAIL=Qostara <hello@qostaraestimates.com>
-CONTACT_TO_EMAIL=hello@qostaraestimates.com
-```
+`CONTACT_FROM_EMAIL` must use the authenticated mailbox. Restart `npm run dev` (local) or the Node app (cPanel) after changing `.env`.
 
 Drawing uploads (PDF/DWG, up to 25 MB) are attached to the notification email.
 
 ## Email templates
 
-Premium HTML emails live in [`emails/`](./emails). Contact form submissions send a branded internal notification plus a customer confirmation via Resend. See [`emails/README.md`](./emails/README.md) for all 15 templates and usage.
+Premium HTML emails live in [`emails/`](./emails). Contact form submissions send a branded internal notification plus a customer confirmation via SMTP. See [`emails/README.md`](./emails/README.md) for all 15 templates and usage.
 
 ## Architecture
 
