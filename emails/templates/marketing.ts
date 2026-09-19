@@ -29,8 +29,7 @@ export function newsletterEmail(vars: NewsletterVars = {}) {
           v.issue_summary ||
           `Hi ${name} — this month’s roundup: cleaner takeoffs, fewer bid-day surprises, and process habits from teams who win more work.`,
         primaryCta: { href: v.cta_link, label: "Read the full issue" },
-        imageUrl:
-          "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80",
+        imageUrl: emailBrand.images.newsletter,
         imageAlt: "Active construction site at dusk",
       }),
       emailFeatureCards([
@@ -108,8 +107,7 @@ export function promotionalCampaignEmail(vars: PromoVars = {}) {
           href: `${emailBrand.url}/pricing`,
           label: "See pricing",
         },
-        imageUrl:
-          "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+        imageUrl: emailBrand.images.promotion,
         imageAlt: "Construction crane against blue sky",
       }),
       emailFeatureCards([

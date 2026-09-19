@@ -46,7 +46,8 @@ function requireEnv(name: string) {
 function getTransporter() {
   if (transporter) return transporter;
 
-  const host = process.env.SMTP_HOST?.trim() || "qostaraestimates.com";
+  const host =
+    process.env.SMTP_HOST?.trim() || new URL(siteConfig.url).hostname;
   const port = Number(process.env.SMTP_PORT || 465);
 
   transporter = nodemailer.createTransport({
@@ -63,7 +64,7 @@ function getTransporter() {
 }
 
 function fromAddress() {
-  const mailbox = process.env.SMTP_USER?.trim() || "info@qostaraestimates.com";
+  const mailbox = requireEnv("SMTP_USER");
   const raw =
     process.env.CONTACT_FROM_EMAIL?.trim() ||
     `${siteConfig.name} <${mailbox}>`;

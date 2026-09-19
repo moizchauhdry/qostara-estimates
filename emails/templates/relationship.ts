@@ -29,8 +29,7 @@ export function thankYouEmail(vars: ProjectEmailVars = {}) {
           href: `${emailBrand.url}/contact`,
           label: "Leave feedback",
         },
-        imageUrl:
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+        imageUrl: emailBrand.images.relationship,
         imageAlt: "Modern commercial building exterior",
       }),
       emailStats(),

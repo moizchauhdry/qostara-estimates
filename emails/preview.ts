@@ -5,8 +5,10 @@
  *   npx tsx emails/preview.ts estimate-ready
  */
 
+import "./load-env";
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { siteConfig } from "@/lib/site";
 import {
   appointmentConfirmationEmail,
   emailTemplates,
@@ -41,9 +43,11 @@ const sample = {
   meeting_title: "Estimate scoping call",
   meeting_date: "March 12, 2026",
   meeting_time: "10:00 AM PT",
-  meeting_link: "https://meet.qostaraestimates.com/scoping",
-  reset_link: "https://qostaraestimates.com/reset?token=demo",
-  verify_link: "https://qostaraestimates.com/verify?token=demo",
+  meeting_link:
+    process.env.EMAIL_PREVIEW_MEETING_URL?.trim() ||
+    `${siteConfig.url}/meeting/scoping`,
+  reset_link: `${siteConfig.url}/reset?token=demo`,
+  verify_link: `${siteConfig.url}/verify?token=demo`,
   code: "847291",
   expires_in: "60 minutes",
   issue_title: "March estimating notes",
@@ -55,8 +59,8 @@ const sample = {
     "We’ve added senior MEP estimators and published clearer turnaround SLAs for commercial packages.",
   message:
     "Bid date is March 28. Looking for CSI Div 3–9 takeoff with unit prices where possible.",
-  cta_link: "https://qostaraestimates.com/contact",
-  unsubscribe_url: "https://qostaraestimates.com/unsubscribe",
+  cta_link: `${siteConfig.url}/contact`,
+  unsubscribe_url: `${siteConfig.url}/unsubscribe`,
 };
 
 const renderers: Record<EmailTemplateId, () => { subject: string; html: string }> = {

@@ -36,8 +36,7 @@ export function estimateReadyEmail(vars: EstimateReadyVars = {}) {
           href: `mailto:${emailBrand.email}?subject=Revision%20request%20${encodeURIComponent(v.estimate_number || "")}`,
           label: "Request revisions",
         },
-        imageUrl:
-          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        imageUrl: emailBrand.images.estimateReady,
         imageAlt: "Estimator reviewing bid documents on a desk",
       }),
       emailInfoTable([

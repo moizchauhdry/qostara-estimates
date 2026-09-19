@@ -2,8 +2,18 @@ import { getEmailLogoUrl } from "../assets";
 import { emailBrand } from "../brand";
 import { escapeHtml } from "./ui";
 
-const { colors, fonts, name, url, legalName, social, email, phone, address } =
-  emailBrand;
+const {
+  colors,
+  fonts,
+  name,
+  url,
+  legalName,
+  social,
+  email,
+  phone,
+  phoneHref,
+  address,
+} = emailBrand;
 
 export function emailHeader({
   showNav = true,
@@ -80,7 +90,7 @@ export function emailFooter({
       <p style="margin:0 0 16px;color:${colors.muted};font-family:${fonts.family};font-size:12px;line-height:1.6;text-align:center;">
         <a href="mailto:${email}" style="color:${colors.muted};text-decoration:none;">${escapeHtml(email)}</a>
         &nbsp;·&nbsp;
-        <a href="tel:+14155550182" style="color:${colors.muted};text-decoration:none;">${escapeHtml(phone)}</a>
+        <a href="${phoneHref}" style="color:${colors.muted};text-decoration:none;">${escapeHtml(phone)}</a>
       </p>
       <p style="margin:0 0 8px;color:${colors.muted};font-family:${fonts.family};font-size:12px;line-height:1.6;text-align:center;">
         <a href="${url}/privacy" style="color:${colors.muted};text-decoration:underline;">Privacy Policy</a>

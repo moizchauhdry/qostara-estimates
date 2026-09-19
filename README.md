@@ -37,6 +37,14 @@ npm run build   # production build
 npm run lint    # ESLint
 ```
 
+## Site configuration (.env)
+
+Company details and links are read from environment variables in [`lib/site.ts`](./lib/site.ts) and shared with the email templates, so nothing needs to be edited in code. See [`.env.example`](./.env.example) for the full list: site URL, name, tagline, email, phone, hours, address, social links, SMTP, and email image overrides.
+
+Every variable is optional and falls back to a built-in default when unset or blank.
+
+> `NEXT_PUBLIC_*` values are inlined at **build time**. After changing them, rebuild (`npm run build` / `npm run build:dist`) — restarting the server alone is not enough. Server-only values (`SMTP_*`, `CONTACT_*`, `EMAIL_*`) are read at runtime.
+
 ## Contact form email
 
 Submissions are sent through the cPanel mailbox over SMTP (`qostaraestimates.com:465`). IMAP (993) and POP3 (995) are only for reading mail in Outlook/Apple Mail — the website does not need them.

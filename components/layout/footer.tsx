@@ -8,15 +8,15 @@ import { services, trades } from "@/lib/content";
 import { navLinks, siteConfig } from "@/lib/site";
 
 const socials = [
-  { Icon: FaXTwitter, label: "Qostara on X", href: siteConfig.social.x },
+  { Icon: FaXTwitter, label: `${siteConfig.name} on X`, href: siteConfig.social.x },
   {
     Icon: FaLinkedinIn,
-    label: "Qostara on LinkedIn",
+    label: `${siteConfig.name} on LinkedIn`,
     href: siteConfig.social.linkedin,
   },
   {
     Icon: FaYoutube,
-    label: "Qostara on YouTube",
+    label: `${siteConfig.name} on YouTube`,
     href: siteConfig.social.youtube,
   },
 ];

@@ -31,8 +31,7 @@ export function welcomeEmail(vars: WelcomeEmailVars = {}) {
           href: `${emailBrand.url}/services`,
           label: "Explore services",
         },
-        imageUrl:
-          "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+        imageUrl: emailBrand.images.welcome,
         imageAlt: "Architect reviewing construction drawings",
       }),
       emailFeatureCards([

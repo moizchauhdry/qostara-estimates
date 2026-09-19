@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site";
+
 /** Shared dynamic variables used across Qostara email templates */
 
 export type BaseEmailVars = {
@@ -50,9 +52,8 @@ export function firstName(fullName?: string) {
 export function withDefaults<T extends BaseEmailVars>(vars: T): T & Required<Pick<BaseEmailVars, "cta_link" | "unsubscribe_url" | "date">> {
   return {
     ...vars,
-    cta_link: vars.cta_link ?? "https://qostaraestimates.com/contact",
-    unsubscribe_url:
-      vars.unsubscribe_url ?? "https://qostaraestimates.com/unsubscribe",
+    cta_link: vars.cta_link ?? `${siteConfig.url}/contact`,
+    unsubscribe_url: vars.unsubscribe_url ?? `${siteConfig.url}/unsubscribe`,
     date:
       vars.date ??
       new Date().toLocaleDateString("en-US", {
