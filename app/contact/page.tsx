@@ -10,19 +10,21 @@ import { ContactForm } from "@/components/contact/contact-form";
 import { Faq } from "@/components/home/faq";
 import { Reveal } from "@/components/motion/reveal";
 import { PageHero } from "@/components/shared/page-hero";
+import { Photo } from "@/components/shared/photo";
 import { Section } from "@/components/shared/section";
 import { faqs } from "@/lib/content";
+import { images } from "@/lib/images";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach Qostara for construction cost estimates, quantity takeoffs, and bid support. Upload drawings or book a scoping call — we reply within one business day.",
+    "Send your plans and project requirements to Qostara Estimates. Our team will review your documents and help determine the estimating services your project requires.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: `Contact — ${siteConfig.name}`,
     description:
-      "Upload plans, ask about pricing, or book a scoping call with our estimating team.",
+      "Send your plans and project requirements to the Qostara Estimates team.",
     url: `${siteConfig.url}/contact`,
   },
 };
@@ -66,8 +68,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Let's scope your next bid"
-        description="Upload drawings, ask about pricing, or book a 15-minute scoping call. A senior estimator replies within one business day — usually sooner."
+        title="Ready to Build Your Next Bid?"
+        description="Send us your plans and project requirements. Our team will review your documents and help determine the estimating services your project requires."
       />
 
       <Section tone="white">
@@ -79,11 +81,11 @@ export default function ContactPage() {
                 Reach us directly
               </p>
               <h2 className="mt-4 text-2xl font-semibold text-balance text-ink-950 sm:text-3xl">
-                Talk to an estimator, not a ticket queue
+                Talk to an Estimator
               </h2>
               <p className="mt-3 max-w-md text-base leading-relaxed text-pretty text-ink-500">
-                Prefer the phone? Call during business hours and you will reach
-                someone who has actually opened a set of plans this week.
+                Prefer to talk it through? Reach the Qostara Estimates team
+                directly, or use the form to request an estimate.
               </p>
             </div>
 
@@ -116,31 +118,19 @@ export default function ContactPage() {
               ))}
             </ul>
 
-            <div
-              className="panel relative flex aspect-[4/3] max-w-full items-center justify-center overflow-hidden bg-gradient-to-br from-ink-100 via-surface to-signal-50"
-              aria-label="Map placeholder"
-            >
-              <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(11,27,41,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(11,27,41,0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
-              <div className="relative px-4 text-center">
-                <MapPin
-                  className="mx-auto size-8 text-signal-600"
-                  aria-hidden
-                />
-                <p className="mt-3 text-sm font-semibold text-ink-800">Map</p>
-                <p className="mt-1 break-words text-xs text-ink-500">
-                  {siteConfig.address.line1}
-                </p>
-              </div>
-            </div>
+            <Photo
+              image={images.estimatorsReview}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              className="aspect-[4/3] max-w-full rounded-2xl shadow-soft ring-1 ring-ink-950/6"
+            />
 
             <div className="rounded-2xl border border-marker-200 bg-marker-50/80 px-5 py-4 ring-1 ring-marker-200/60">
               <p className="text-sm font-semibold text-marker-800">
                 Business hours
               </p>
               <p className="mt-1 text-sm leading-relaxed text-pretty text-marker-900/80">
-                {siteConfig.hours}. Messages sent after hours are queued for the
-                next business morning — rush bid dates are flagged in your
-                subject line.
+                {siteConfig.hours}. Include your bid date in your message so we
+                can plan around it.
               </p>
             </div>
           </Reveal>

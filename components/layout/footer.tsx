@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FaLinkedinIn, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Logo } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { services, trades } from "@/lib/content";
+import { tradeGroups } from "@/lib/content";
+import { serviceHref, servicePages } from "@/lib/services";
 import { navLinks, siteConfig } from "@/lib/site";
 
 const socials = [
@@ -32,35 +32,15 @@ export function Footer() {
               {siteConfig.description}
             </p>
 
-            <form className="mt-8 max-w-sm">
-              <label
-                htmlFor="newsletter-email"
-                className="text-sm font-medium text-white"
-              >
-                Monthly estimating brief
-              </label>
-              <div className="mt-3 flex min-w-0 flex-col gap-2.5 sm:flex-row">
-                <Input
-                  id="newsletter-email"
-                  type="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  placeholder="you@company.com"
-                  className="h-11 min-w-0 rounded-full border-white/15 bg-white/5 text-white placeholder:text-ink-500 focus-visible:border-signal-400 focus-visible:ring-signal-500/30"
-                />
-                <Button
-                  type="submit"
-                  className="h-11 shrink-0 rounded-full bg-signal-600 px-5 text-white hover:bg-signal-500"
-                >
-                  Subscribe
-                  <ArrowRight data-icon="inline-end" />
-                </Button>
-              </div>
-              <p className="mt-2.5 text-xs text-ink-500">
-                No spam. Unsubscribe any time.
-              </p>
-            </form>
+            <Button
+              asChild
+              className="mt-8 h-11 rounded-full bg-signal-600 px-6 text-white hover:bg-signal-500"
+            >
+              <Link href="/contact">
+                Request an Estimate
+                <ArrowUpRight data-icon="inline-end" />
+              </Link>
+            </Button>
           </div>
 
           <nav
@@ -78,20 +58,23 @@ export function Footer() {
             </FooterColumn>
 
             <FooterColumn heading="Services">
-              {services.slice(0, 5).map((service) => (
+              {servicePages.map((service) => (
                 <li key={service.slug}>
-                  <Link href="/services" className="footer-link">
-                    {service.title}
+                  <Link
+                    href={serviceHref(service.slug)}
+                    className="footer-link"
+                  >
+                    {service.navLabel}
                   </Link>
                 </li>
               ))}
             </FooterColumn>
 
             <FooterColumn heading="Trades">
-              {trades.slice(0, 6).map((trade) => (
-                <li key={trade.slug}>
+              {tradeGroups.map((group) => (
+                <li key={group.slug}>
                   <Link href="/trades" className="footer-link">
-                    {trade.name}
+                    {group.name}
                   </Link>
                 </li>
               ))}

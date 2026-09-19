@@ -1,51 +1,49 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Section, SectionHeading } from "@/components/shared/section";
 import { Button } from "@/components/ui/button";
-import { trades } from "@/lib/content";
+import { tradeGroups } from "@/lib/content";
 
-export function TradesGrid({
-  limit,
-  showCta = true,
-}: {
-  limit?: number;
-  showCta?: boolean;
-}) {
-  const items = limit ? trades.slice(0, limit) : trades;
-
+export function TradesGrid({ showCta = true }: { showCta?: boolean }) {
   return (
-    <Section id="trades">
+    <Section id="trades" tone="surface">
       <SectionHeading
-        eyebrow="Trades we cover"
-        title="Every trade on the drawing set — measured and priced"
-        description="Specialty estimators for concrete, steel, MEP, finishes, and site work. No generalists guessing at your scope."
+        eyebrow="Trades"
+        title="Estimates Across Major Construction Trades"
+        description="Our estimating capabilities can support individual trades or complete project scopes."
       />
 
       <Stagger
         as="ul"
-        className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
+        className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {items.map((trade) => {
-          const Icon = trade.Icon;
+        {tradeGroups.map((group) => {
+          const Icon = group.Icon;
           return (
-            <StaggerItem as="li" key={trade.slug}>
-              <Link
-                href="/trades"
-                className="panel group flex h-full flex-col items-start gap-4 p-5 transition duration-500 ease-smooth hover:-translate-y-1 hover:shadow-lifted hover:ring-signal-200/70 sm:p-6"
-              >
-                <span className="inline-flex size-10 items-center justify-center rounded-xl bg-surface text-ink-800 ring-1 ring-ink-950/6 transition group-hover:bg-signal-600 group-hover:text-white group-hover:shadow-signal">
+            <StaggerItem as="li" key={group.slug}>
+              <article className="panel group h-full p-6 transition duration-500 ease-smooth hover:-translate-y-1 hover:shadow-lifted hover:ring-signal-200/70 sm:p-7">
+                <span className="inline-flex size-11 items-center justify-center rounded-xl bg-gradient-to-br from-signal-50 to-signal-100 text-signal-600 ring-1 ring-signal-200/70 transition duration-500 group-hover:from-signal-600 group-hover:to-signal-700 group-hover:text-white group-hover:shadow-signal">
                   <Icon className="size-5" aria-hidden />
                 </span>
-                <span>
-                  <span className="block text-sm font-semibold text-ink-950 sm:text-base">
-                    {trade.name}
-                  </span>
-                  <span className="mt-1.5 block text-xs leading-relaxed text-ink-500 sm:text-sm">
-                    {trade.description}
-                  </span>
-                </span>
-              </Link>
+                <h3 className="mt-5 text-lg font-semibold text-ink-950">
+                  {group.name}
+                </h3>
+                <ul className="mt-4 space-y-2.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-ink-600"
+                    >
+                      <Check
+                        className="mt-0.5 size-4 shrink-0 text-signal-600"
+                        aria-hidden
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
             </StaggerItem>
           );
         })}
@@ -59,7 +57,7 @@ export function TradesGrid({
             className="h-11 rounded-full border-ink-200 px-6"
           >
             <Link href="/trades">
-              View all trades
+              Explore all trades
               <ArrowUpRight data-icon="inline-end" />
             </Link>
           </Button>

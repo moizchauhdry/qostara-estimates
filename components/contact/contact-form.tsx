@@ -312,7 +312,7 @@ export function ContactForm() {
         {(state.status === "invalid" || state.status === "error") && (
           <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
         )}
-        {state.message || "We reply to every message within one business day."}
+        {state.message || "Send your plans and project details and our team will be in touch."}
       </p>
     </form>
   );

@@ -40,7 +40,7 @@ export function Faq({ items = faqs, id = "faq" }: FaqProps) {
             eyebrow="FAQ"
             align="left"
             title="Questions, answered"
-            description="Everything teams ask before they send the first set of drawings. Still unsure? We reply within one business day."
+            description="Everything teams ask before they send the first set of drawings. Still unsure? Get in touch and we'll help."
           />
           <Reveal delay={0.1}>
             <Button

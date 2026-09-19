@@ -1,128 +1,77 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, Play } from "lucide-react";
-import { TrustBand } from "@/components/home/logo-cloud";
-import {
-  TakeoffDrawing,
-  GlowField,
-  BlueprintGrid,
-} from "@/components/shared/graphics";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Phone } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-
-const promises = [
-  "3–5 day turnaround",
-  "CSI-formatted reports",
-  "Addendum support included",
-];
-
-const floatCards = [
-  { label: "Win rate lift", value: "+22%", detail: "after 90 days" },
-  { label: "Avg. accuracy", value: "98.4%", detail: "vs awarded cost" },
-  { label: "Active bids", value: "47", detail: "this week" },
-];
+import { Photo } from "@/components/shared/photo";
+import { Button } from "@/components/ui/button";
+import { images } from "@/lib/images";
+import { siteConfig } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-b from-surface via-white to-surface">
-      <GlowField tone="mixed" />
-      <BlueprintGrid
-        className="opacity-70 [mask-image:radial-gradient(ellipse_70%_55%_at_50%_0%,#000_40%,transparent_100%)]"
-        size={64}
+    <section className="relative isolate overflow-hidden bg-ink-950">
+      <Photo
+        image={images.sunsetSite}
+        sizes="100vw"
+        preload
+        className="absolute inset-0 -z-10 bg-ink-950"
+        imageClassName="object-[72%_center] lg:object-center"
+      />
+      {/* Darkens the photo where the copy sits; the building and crane stay clear on the right. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-ink-950/70 lg:bg-transparent lg:bg-gradient-to-r lg:from-ink-950/90 lg:via-ink-950/55 lg:to-transparent"
       />
 
-      <div className="shell relative grid items-center gap-12 pt-16 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pt-24 lg:pb-16">
-        <div>
+      <div className="shell relative flex min-h-[34rem] items-center py-20 sm:min-h-[38rem] lg:min-h-[42rem] lg:py-28">
+        <div className="max-w-2xl">
           <Reveal>
-            <p className="eyebrow text-signal-600">
-              <span aria-hidden className="h-px w-6 bg-signal-500/50" />
-              Construction cost estimating
+            <p className="eyebrow text-marker-300">
+              <span aria-hidden className="h-px w-6 bg-marker-300/60" />
+              Qostara Estimates
             </p>
-            <h1 className="mt-6 max-w-xl text-[2.6rem] leading-[1.05] font-semibold text-balance sm:text-5xl lg:text-[3.5rem]">
-              Estimates precise enough to{" "}
-              <span className="bg-gradient-to-br from-signal-600 via-signal-500 to-marker-500 bg-clip-text text-transparent">
-                win the bid
-              </span>
+            <h1 className="mt-6 text-[2.5rem] leading-[1.05] font-semibold text-balance text-white sm:text-5xl lg:text-[3.5rem]">
+              Construction Estimating Built for Confident Bidding
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-pretty text-ink-500 sm:text-lg">
-              Qostara turns drawings into bid-ready quantity takeoffs and cost
-              models — so general contractors and specialty trades bid with
-              confidence, not guesswork.
+            <p className="mt-5 text-lg font-semibold text-marker-300 sm:text-xl">
+              Accurate Takeoffs. Detailed Estimates. Better Bids.
+            </p>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-pretty text-ink-200 sm:text-lg">
+              Qostara Estimates provides professional construction estimating,
+              quantity takeoff, MEP estimating, and shop drawing services for
+              contractors, subcontractors, builders, developers, and
+              construction professionals.
+            </p>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-pretty text-ink-200">
+              We turn construction plans and specifications into clear,
+              detailed, and actionable cost information—helping you understand
+              project requirements, prepare competitive bids, and make better
+              decisions before construction begins.
             </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button
               asChild
-              className="h-12 rounded-full bg-signal-600 px-7 text-base text-white shadow-signal hover:bg-signal-700 hover:shadow-signal-lifted"
+              className="h-12 rounded-full bg-signal-600 px-7 text-base text-white shadow-signal hover:bg-signal-500 hover:shadow-signal-lifted"
             >
               <Link href="/contact">
-                Get Free Estimate
+                Request an Estimate
                 <ArrowUpRight data-icon="inline-end" />
               </Link>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="h-12 rounded-full border-ink-200 bg-white/80 px-7 text-base text-ink-800 backdrop-blur hover:bg-white"
+              className="h-12 rounded-full border-white/30 bg-white/10 px-7 text-base text-white backdrop-blur hover:bg-white/20 hover:text-white"
             >
-              <Link href="/services">
-                <Play
-                  data-icon="inline-start"
-                  className="size-3.5 fill-current"
-                />
-                See how it works
-              </Link>
+              <a href={siteConfig.phoneHref}>
+                <Phone data-icon="inline-start" />
+                Talk to an Estimator
+              </a>
             </Button>
           </Reveal>
-
-          <Reveal delay={0.18}>
-            <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5">
-              {promises.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 text-sm text-ink-500"
-                >
-                  <Check
-                    className="size-4 shrink-0 text-signal-600"
-                    aria-hidden
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
         </div>
-
-        <Reveal delay={0.15} y={32} className="relative">
-          <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-signal-500/15 via-transparent to-marker-400/15 blur-2xl" />
-          <div className="panel relative overflow-hidden p-3 sm:p-4">
-            <TakeoffDrawing />
-          </div>
-
-          {floatCards.map((card, index) => (
-            <div
-              key={card.label}
-              className={`glass absolute hidden px-4 py-3 sm:block ${
-                index === 0
-                  ? "-top-3 -left-2 lg:-left-8"
-                  : index === 1
-                    ? "top-1/3 -right-2 lg:-right-6"
-                    : "-bottom-2 left-8 lg:left-12"
-              }`}
-            >
-              <p className="text-[0.6875rem] font-semibold tracking-[0.12em] text-ink-400 uppercase">
-                {card.label}
-              </p>
-              <p className="mt-1 text-xl font-semibold tracking-tight text-ink-950 tabular-nums">
-                {card.value}
-              </p>
-              <p className="text-xs text-ink-500">{card.detail}</p>
-            </div>
-          ))}
-        </Reveal>
       </div>
-
-      <TrustBand />
     </section>
   );
 }

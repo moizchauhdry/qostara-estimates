@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
 
-type Tone = "white" | "surface" | "ink";
+export type Tone = "white" | "surface" | "ink";
 
 const toneStyles: Record<Tone, string> = {
   white: "bg-white",

@@ -137,7 +137,7 @@ export async function submitContactForm(
 
   return {
     status: "sent",
-    message: `Thanks ${values.name.split(" ")[0]} — your message is with our team. Expect a reply within one business day.`,
+    message: `Thanks ${values.name.split(" ")[0]} — your message is with our team. Our team will review your project details and be in touch.`,
     errors: {},
     values: {},
   };

@@ -31,11 +31,11 @@ export const siteConfig = {
   shortTagline: envOr(process.env.NEXT_PUBLIC_SHORT_TAGLINE, "Estimates"),
   tagline: envOr(
     process.env.NEXT_PUBLIC_TAGLINE,
-    "Construction estimates that win more bids",
+    "Construction Estimating Built for Confident Bidding",
   ),
   description: envOr(
     process.env.NEXT_PUBLIC_DESCRIPTION,
-    "Qostara is a construction cost estimating firm that turns drawings into precise, bid-ready takeoffs — so general contractors and specialty trades win more work with fewer surprises.",
+    "Professional construction estimating, quantity takeoffs, MEP estimating, and shop drawing services for today's construction industry.",
   ),
   // Origin only, no trailing slash.
   url: envOr(
@@ -88,7 +88,5 @@ export const navLinks = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Trades", href: "/trades" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;

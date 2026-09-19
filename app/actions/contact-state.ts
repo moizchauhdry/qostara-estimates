@@ -32,11 +32,11 @@ export const initialContactState: ContactFormState = {
 };
 
 export const projectTypes = [
-  "Construction cost estimation",
-  "Material takeoff",
-  "Quantity surveying",
-  "Bid preparation",
-  "Design-build estimate",
-  "Labor cost analysis",
+  "Takeoff & estimating",
+  "Mechanical estimating",
+  "Electrical estimating",
+  "Plumbing estimating",
+  "Shop drawing & detailing",
+  "Multi-trade estimate",
   "Other / not sure",
 ] as const;
