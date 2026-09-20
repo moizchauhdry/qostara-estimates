@@ -139,7 +139,7 @@ export function ContactForm() {
               {...props}
               type="tel"
               autoComplete="tel"
-              placeholder="+1 (415) 555-0100"
+              placeholder="+1 (929) 555-0100"
               defaultValue={state.values.phone}
               className={fieldClassName}
             />
