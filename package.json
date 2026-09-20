@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node api.js && next dev",
+    "build": "node api.js && next build",
     "build:dist": "node scripts/build-dist.mjs",
-    "start": "next start",
+    "start": "node api.js && next start",
     "start:cpanel": "node server.js",
     "deploy:cpanel": "sh scripts/cpanel-deploy.sh",
     "lint": "eslint",
